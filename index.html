@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISP Semarang | Investor Saham Pemula Semarang</title>
+  <meta name="description" content="Wadah komunitas edukasi investor saham muda di Semarang. Belajar saham secara logis, terukur, berbasis data, dan bebas FOMO menuju kemandirian finansial." />
+  <meta name="keywords" content="ISP Semarang, Investor Saham Pemula Semarang, Komunitas Saham Semarang, Belajar Saham, Edukasi Investasi, Saham Mahasiswa" />
+  <meta name="author" content="ISP Semarang" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ISP Semarang - Belajar Saham Logis, Terukur & Tanpa FOMO" />
+  <meta property="og:description" content="Komunitas edukasi investasi saham untuk pemula dan anak muda di Semarang. Bangun portofolio sehat bersama teman sefrekuensi." />
+  <meta property="og:url" content="https://ispsemarang.id" />
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS CDN with Custom Extended Colors -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              light: '#d2e6fe',       // Minimalist Light Blue
+              soft: '#edf5ff',        // Ultra-light blue tint
+              DEFAULT: '#2563eb',     // Royal blue accent
+              dark: '#1e293b',        // Dark Navy Slate
+              deep: '#0f172a',        // Midnight Navy
+              hover: '#1d4ed8'        // Hover state blue
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          },
+          boxShadow: {
+            'soft-card': '0 10px 30px -5px rgba(30, 41, 59, 0.05)',
+            'highlight': '0 20px 40px -15px rgba(37, 99, 235, 0.18)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Custom subtle styling */
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #1e293b;
+      background-color: #ffffff;
+      overflow-x: hidden;
+    }
+    
+    .bg-grid-pattern {
+      background-size: 36px 36px;
+      background-image: 
+        linear-gradient(to right, rgba(210, 230, 254, 0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(210, 230, 254, 0.3) 1px, transparent 1px);
+    }
+
+    .glass-nav {
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Floating animation for badge */
+    @keyframes subtle-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float {
+      animation: subtle-float 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-brand-light selection:text-brand-deep">
+
+  <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+  <aside aria-label="Announcement" class="bg-brand-deep text-slate-300 text-xs py-2 px-4 border-b border-slate-800 text-center flex items-center justify-center gap-2">
+    <span class="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-400 font-semibold px-2 py-0.5 rounded-full text-[11px]">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      Open Member 2026
+    </span>
+    <span>Komunitas edukasi saham independen Kota Semarang &amp; sekitarnya. 100% Tanpa Titip Dana.</span>
+  </aside>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-100 transition-all duration-300" id="main-header">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between" aria-label="Main Navigation">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group" aria-label="Beranda ISP Semarang">
+        <div class="w-11 h-11 rounded-xl bg-brand-light flex items-center justify-center text-brand font-extrabold text-xl shadow-sm border border-blue-200/60 group-hover:scale-105 transition-transform duration-200">
+          <i class="fa-solid fa-chart-line text-brand"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-lg sm:text-xl tracking-tight text-brand-deep flex items-center gap-1">
+            ISP <span class="text-brand">Semarang</span>
+          </span>
+          <span class="text-[11px] font-medium text-slate-500 tracking-wide uppercase">Investor Saham Pemula</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm font-semibold text-slate-600 hover:text-brand transition-colors duration-200">Tentang Kami</a>
+        <a href="#programs" class="text-sm font-semibold text-slate-600 hover:text-brand transition-colors duration-200">Program &amp; Value</a>
+        <a href="#principles" class="text-sm font-semibold text-slate-600 hover:text-brand transition-colors duration-200">Prinsip Belajar</a>
+        <a href="#contact" class="text-sm font-semibold text-slate-600 hover:text-brand transition-colors duration-200">Kontak</a>
+      </div>
+
+      <!-- Action Button (Desktop) -->
+      <div class="hidden md:flex items-center gap-3">
+        <a 
+          href="https://s.id/GabungISPSemarang" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 bg-brand-deep hover:bg-slate-800 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 border border-slate-700"
+          id="nav-join-button"
+        >
+          <span>Join Us</span>
+          <i class="fa-solid fa-arrow-right text-xs text-brand-light"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button 
+        type="button" 
+        id="mobile-menu-btn" 
+        class="md:hidden inline-flex items-center justify-center p-2.5 rounded-xl text-slate-700 hover:text-brand hover:bg-brand-soft focus:outline-none focus:ring-2 focus:ring-brand"
+        aria-controls="mobile-menu" 
+        aria-expanded="false" 
+        aria-label="Buka Menu Navigasi"
+      >
+        <i id="menu-icon" class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </nav>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white/95 backdrop-blur-lg px-5 pt-3 pb-6 space-y-4 shadow-lg">
+      <div class="flex flex-col space-y-3">
+        <a href="#about" class="mobile-nav-link text-slate-700 font-semibold py-2 px-3 rounded-lg hover:bg-brand-soft hover:text-brand transition-colors">Tentang Kami</a>
+        <a href="#programs" class="mobile-nav-link text-slate-700 font-semibold py-2 px-3 rounded-lg hover:bg-brand-soft hover:text-brand transition-colors">Program &amp; Value</a>
+        <a href="#principles" class="mobile-nav-link text-slate-700 font-semibold py-2 px-3 rounded-lg hover:bg-brand-soft hover:text-brand transition-colors">Prinsip Belajar</a>
+        <a href="#contact" class="mobile-nav-link text-slate-700 font-semibold py-2 px-3 rounded-lg hover:bg-brand-soft hover:text-brand transition-colors">Kontak</a>
+      </div>
+      <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+        <a 
+          href="https://s.id/GabungISPSemarang" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="w-full inline-flex items-center justify-center gap-2 bg-brand text-white font-semibold py-3 px-4 rounded-xl text-center shadow-md active:scale-95 transition-all"
+        >
+          <span>Gabung Komunitas (Gratis)</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+        <a 
+          href="https://wa.me/6281949848700" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="w-full inline-flex items-center justify-center gap-2 bg-white text-slate-700 border border-slate-300 font-semibold py-2.5 px-4 rounded-xl text-center hover:bg-slate-50"
+        >
+          <i class="fa-brands fa-whatsapp text-emerald-600"></i>
+          <span>Hubungi Pengurus</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-grow">
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-white">
+      <!-- Background Ambient Glow & Subtle Pattern -->
+      <div class="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none"></div>
+      <div class="absolute top-0 right-1/4 w-96 h-96 bg-brand-light/70 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+      <div class="absolute bottom-10 left-10 w-72 h-72 bg-blue-100/50 rounded-full blur-2xl -z-10 pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Hero Left Copy -->
+          <div class="lg:col-span-7 text-left space-y-6">
+            
+            <!-- Trust Badge Pill -->
+            <div class="inline-flex items-center gap-2.5 bg-brand-soft border border-blue-200/80 px-3.5 py-1.5 rounded-full text-slate-700 text-xs sm:text-sm font-semibold shadow-xs">
+              <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
+              </span>
+              <span>Komunitas Investor Muda &amp; Edukatif Kota Semarang</span>
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-brand-deep tracking-tight leading-[1.15]">
+              Belajar Saham <span class="bg-gradient-to-r from-brand to-blue-700 bg-clip-text text-transparent">Logis, Terukur,</span> &amp; Tanpa FOMO.
+            </h1>
+
+            <!-- Sub-headline -->
+            <p class="text-base sm:text-lg lg:text-xl text-slate-600 font-normal leading-relaxed max-w-2xl">
+              Wadah bagi investor muda Semarang untuk belajar, berdiskusi, dan membangun portofolio sehat menuju kemandirian finansial.
+            </p>
+
+            <!-- Dual Call to Action Buttons -->
+            <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <a 
+                href="https://s.id/GabungISPSemarang" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-3 bg-brand hover:bg-brand-hover text-white font-bold px-7 py-3.5 rounded-xl shadow-highlight hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 text-center text-base"
+                id="hero-join-cta"
+              >
+                <i class="fa-solid fa-users text-sm"></i>
+                <span>Gabung Komunitas</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+
+              <a 
+                href="https://wa.me/6281949848700" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2.5 bg-brand-soft hover:bg-blue-100/70 text-brand-deep border border-blue-200 font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 text-center text-base"
+                id="hero-collab-cta"
+              >
+                <i class="fa-brands fa-whatsapp text-emerald-600 text-lg"></i>
+                <span>Kolaborasi Event / B2B</span>
+              </a>
+            </div>
+
+            <!-- Trust Metrics Bar -->
+            <div class="pt-6 border-t border-slate-100 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
+              <div>
+                <p class="text-2xl sm:text-3xl font-extrabold text-brand-deep">500+</p>
+                <p class="text-xs sm:text-sm text-slate-500 font-medium">Member Belajar Aktif</p>
+              </div>
+              <div>
+                <p class="text-2xl sm:text-3xl font-extrabold text-brand-deep">40+</p>
+                <p class="text-xs sm:text-sm text-slate-500 font-medium">Sesi Edukasi &amp; Diskusi</p>
+              </div>
+              <div>
+                <p class="text-2xl sm:text-3xl font-extrabold text-emerald-600">0 Rp</p>
+                <p class="text-xs sm:text-sm text-slate-500 font-medium">Bebas Titip Dana / Signal</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Right Mockup / Visual Card -->
+          <div class="lg:col-span-5 relative flex justify-center">
+            
+            <!-- Main Interactive Card Frame -->
+            <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-slate-100 relative z-10">
+              
+              <!-- Card Header -->
+              <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-lg bg-brand-light flex items-center justify-center text-brand font-bold">
+                    <i class="fa-solid fa-chart-pie"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-sm text-brand-deep">Portofolio Sehat Pemula</h3>
+                    <p class="text-[11px] text-slate-400">Framework Analisis ISP Semarang</p>
+                  </div>
+                </div>
+                <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-200">
+                  <i class="fa-solid fa-arrow-trend-up text-[10px]"></i>
+                  Logis &amp; Terukur
+                </span>
+              </div>
+
+              <!-- Metric Highlight Box -->
+              <div class="mt-4 p-4 rounded-2xl bg-brand-soft border border-blue-200/60">
+                <div class="flex justify-between items-end">
+                  <div>
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Mindset Investasi</p>
+                    <p class="text-xl font-extrabold text-brand-deep mt-0.5">Pertumbuhan Berkelanjutan</p>
+                  </div>
+                  <span class="text-xs font-bold text-brand bg-white px-2 py-1 rounded-md border border-blue-200">
+                    Risk 1 : Reward 3
+                  </span>
+                </div>
+
+                <!-- Simulation Progress Bar -->
+                <div class="mt-3 space-y-1.5">
+                  <div class="flex justify-between text-[11px] font-medium text-slate-600">
+                    <span>Fundamental Check</span>
+                    <span class="text-emerald-600 font-bold">Lulus Kriteria (85%)</span>
+                  </div>
+                  <div class="w-full bg-blue-200/50 rounded-full h-2">
+                    <div class="bg-brand h-2 rounded-full w-[85%]"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Checklist Pillars -->
+              <div class="mt-4 space-y-2.5 text-xs">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="flex items-center gap-2 text-slate-700 font-medium">
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+                    Manajemen Risiko &amp; Alokasi Modal
+                  </span>
+                  <span class="text-slate-400 font-mono">Disiplin</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="flex items-center gap-2 text-slate-700 font-medium">
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+                    Bedah Laporan Keuangan Mandiri
+                  </span>
+                  <span class="text-slate-400 font-mono">Objektif</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="flex items-center gap-2 text-slate-700 font-medium">
+                    <i class="fa-solid fa-ban text-rose-500 text-sm"></i>
+                    Anti-FOMO Saham Gorengan
+                  </span>
+                  <span class="text-rose-600 font-semibold">Tolak Pom-pom</span>
+                </div>
+              </div>
+
+              <!-- Mini Footer inside card -->
+              <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-solid fa-location-dot text-rose-500"></i>
+                  Basecamp: Semarang, Jawa Tengah
+                </span>
+                <span class="font-semibold text-brand">Komunitas Terbuka</span>
+              </div>
+            </div>
+
+            <!-- Floating Pill Badge 1 (Top Right) -->
+            <div class="hidden sm:flex items-center gap-2 absolute -top-5 -right-4 bg-white px-4 py-2.5 rounded-2xl shadow-xl border border-slate-100 z-20 animate-float">
+              <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-xs">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-brand-deep">100% Edukatif</p>
+                <p class="text-[10px] text-slate-400">Bukan Jualan Sinyal Saham</p>
+              </div>
+            </div>
+
+            <!-- Floating Pill Badge 2 (Bottom Left) -->
+            <div class="hidden sm:flex items-center gap-2.5 absolute -bottom-6 -left-6 bg-white px-4 py-3 rounded-2xl shadow-xl border border-slate-100 z-20">
+              <div class="w-8 h-8 rounded-full bg-brand-light flex items-center justify-center text-brand font-bold text-xs">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-brand-deep">Saham Pemula 101</p>
+                <p class="text-[10px] text-slate-500">Dari Nol Sampai Paham Logikanya</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <section id="about" class="py-20 bg-slate-50/70 border-y border-slate-200/60 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="max-w-3xl mx-auto text-center space-y-3">
+          <div class="inline-flex items-center gap-2 bg-brand-light/80 text-brand font-bold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+            <i class="fa-solid fa-compass"></i>
+            Tentang ISP Semarang
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-deep tracking-tight">
+            Membangun Ekosistem Belajar Saham yang Sehat &amp; Suportif
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+            Pasar modal bukan tempat berjudi atau mencari jalan pintas kekayaan instan. ISP Semarang didirikan atas kegelisahan banyaknya anak muda yang terjebak ajakan pom-pom dan kerugian karena kurangnya literasi dasar.
+          </p>
+        </div>
+
+        <!-- 3 Core Philosophy Cards -->
+        <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Pillar 1 -->
+          <div class="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-soft-card hover:border-brand-light hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="w-13 h-13 w-12 h-12 rounded-xl bg-brand-light flex items-center justify-center text-brand text-xl font-bold">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <h3 class="text-xl font-bold text-brand-deep">Pondasi Logis &amp; Terstruktur</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Kami mengajarkan pemahaman fundamental ekonomi, kinerja bisnis emiten di balik lembar saham, dan rasio keuangan penting tanpa rumus yang membingungkan.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-semibold text-brand">
+              <span>Berdasar Data Nyata</span>
+              <i class="fa-solid fa-check ml-auto text-emerald-500"></i>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-soft-card hover:border-brand-light hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 text-xl font-bold">
+                <i class="fa-solid fa-shield-heart"></i>
+              </div>
+              <h3 class="text-xl font-bold text-brand-deep">Lingkungan Positif &amp; Anti-FOMO</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Ruang aman bagi pemula untuk bertanya tanpa takut dihakimi. Tidak ada hype saham gorengan, tidak ada iming-iming profit bombastis harian.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-semibold text-emerald-600">
+              <span>Bebas Tekanan Mental</span>
+              <i class="fa-solid fa-check ml-auto text-emerald-500"></i>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-soft-card hover:border-brand-light hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 text-xl font-bold">
+                <i class="fa-solid fa-scale-balanced"></i>
+              </div>
+              <h3 class="text-xl font-bold text-brand-deep">Integritas &amp; Independen</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                ISP Semarang berdiri sebagai komunitas murni edukatif non-profit. Kami tidak menghimpun dana masyarakat, tidak berafiliasi sembarangan, dan netral.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-semibold text-purple-600">
+              <span>Transparan &amp; Terpercaya</span>
+              <i class="fa-solid fa-check ml-auto text-emerald-500"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Community Commitment Banner -->
+        <div class="mt-12 bg-white rounded-2xl p-6 sm:p-8 border border-blue-200/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-brand-light flex-shrink-0 flex items-center justify-center text-brand text-xl">
+              <i class="fa-solid fa-bullhorn"></i>
+            </div>
+            <div>
+              <h4 class="text-base sm:text-lg font-bold text-brand-deep">Komitmen Komunitas: 100% Edukasi Murni</h4>
+              <p class="text-slate-600 text-sm mt-1 max-w-2xl">
+                ISP Semarang tidak pernah meminta dana investasi, tidak menjual sinyal berbayar, dan melarang segala bentuk skema titip dana. Setiap member diedukasi untuk memiliki otonomi penuh atas rekening investasinya masing-masing.
+              </p>
+            </div>
+          </div>
+          <a 
+            href="#principles" 
+            class="inline-flex items-center gap-2 text-sm font-bold text-brand hover:text-brand-hover whitespace-nowrap bg-brand-soft px-4 py-2 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors"
+          >
+            <span>Pelajari Etika Belajar</span>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= PROGRAMS & VALUE SECTION ================= -->
+    <section id="programs" class="py-20 md:py-28 bg-white scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="max-w-3xl mx-auto text-center space-y-3">
+          <div class="inline-flex items-center gap-2 bg-brand-light/80 text-brand font-bold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+            <i class="fa-solid fa-cubes"></i>
+            Program &amp; Value Komunitas
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-deep tracking-tight">
+            Aktivitas Rutin yang Kami Bangun Bersama
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+            Dari sesi online hingga tatap muka di berbagai titik Kota Semarang, ini adalah fasilitas nyata yang dinikmati setiap member ISP Semarang.
+          </p>
+        </div>
+
+        <!-- 3 Columns Program Grid -->
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Program 1: Edukasi Rutin -->
+          <div class="group relative bg-white rounded-3xl p-8 border border-slate-200 hover:border-brand-light shadow-soft-card hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
+            <div class="space-y-5">
+              <!-- Icon with custom Light Blue tone -->
+              <div class="w-14 h-14 rounded-2xl bg-brand-light flex items-center justify-center text-brand text-2xl group-hover:scale-110 transition-transform duration-300">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-brand uppercase tracking-wider">Online &amp; Offline</span>
+                <h3 class="text-2xl font-bold text-brand-deep mt-1">Edukasi Rutin</h3>
+              </div>
+
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Kurikulum terstruktur yang membahas langkah demi langkah investasi saham dari sudut pandang pemula tanpa jargon rumit.
+              </p>
+
+              <!-- Feature List -->
+              <ul class="space-y-2.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Webinar Berkala:</strong> Kelas saham dasar &amp; strategi pemula.</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Bedah Laporan Keuangan:</strong> Cara baca annual report emiten IDX.</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Mindset &amp; Money Management:</strong> Atur modal agar psikologi tenang.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-8 pt-4">
+              <span class="inline-flex items-center gap-2 text-xs font-bold text-brand-deep bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 w-full justify-center">
+                <i class="fa-regular fa-clock text-slate-400"></i>
+                Setiap 2 Pekan Sekali
+              </span>
+            </div>
+          </div>
+
+          <!-- Program 2: Kopdar & Diskusi -->
+          <div class="group relative bg-white rounded-3xl p-8 border-2 border-brand-light shadow-highlight hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
+            
+            <!-- Popular Badge -->
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+              Favorit Member
+            </div>
+
+            <div class="space-y-5">
+              <!-- Icon -->
+              <div class="w-14 h-14 rounded-2xl bg-brand text-white flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+                <i class="fa-solid fa-comments"></i>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-brand uppercase tracking-wider">Meetup Tatap Muka</span>
+                <h3 class="text-2xl font-bold text-brand-deep mt-1">Kopdar &amp; Diskusi</h3>
+              </div>
+
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Pertemuan santai dan egaliter di coffee shop atau coworking space seputar Tembalang, Kota Lama, dan Simpang Lima Semarang.
+              </p>
+
+              <!-- Feature List -->
+              <ul class="space-y-2.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Sharing Portofolio Santai:</strong> Review kendala &amp; case study nyata.</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Tanya Jawab Bebas:</strong> Bertanya langsung ke sesama rekan investor.</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Vibe Kasual:</strong> Diskusi berbobot tanpa suasana kaku formalitas.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-8 pt-4">
+              <span class="inline-flex items-center gap-2 text-xs font-bold text-brand-deep bg-brand-soft px-3 py-1.5 rounded-lg border border-blue-200 w-full justify-center">
+                <i class="fa-solid fa-mug-hot text-brand"></i>
+                Ngopi &amp; Belajar di Semarang
+              </span>
+            </div>
+          </div>
+
+          <!-- Program 3: Networking B2B -->
+          <div class="group relative bg-white rounded-3xl p-8 border border-slate-200 hover:border-brand-light shadow-soft-card hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
+            <div class="space-y-5">
+              <!-- Icon -->
+              <div class="w-14 h-14 rounded-2xl bg-brand-light flex items-center justify-center text-brand text-2xl group-hover:scale-110 transition-transform duration-300">
+                <i class="fa-solid fa-handshake"></i>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-brand uppercase tracking-wider">Kemitraan &amp; Kolaborasi</span>
+                <h3 class="text-2xl font-bold text-brand-deep mt-1">Networking B2B</h3>
+              </div>
+
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Jembatan kolaborasi dengan sekuritas berizin OJK, Galeri Investasi kampus (UNDIP, UNNES, UDINUS, dll.), serta praktisi industri pasar modal.
+              </p>
+
+              <!-- Feature List -->
+              <ul class="space-y-2.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Partnership Sekuritas:</strong> Literasi pembukaan RDN resmi terdaftar.</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Sinergi Kampus:</strong> Kolaborasi seminar bersama BEM &amp; KSPM.</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-brand text-sm"></i>
+                  <span><strong>Guest Speaker:</strong> Mendatangkan praktisi dan analis berpengalaman.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-8 pt-4">
+              <span class="inline-flex items-center gap-2 text-xs font-bold text-brand-deep bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 w-full justify-center">
+                <i class="fa-solid fa-building text-slate-400"></i>
+                Terbuka Kerjasama Institusi
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= PRINCIPLES / ANTI-FOMO SECTION ================= -->
+    <section id="principles" class="py-20 bg-brand-soft/60 border-t border-slate-200/70 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-6 space-y-5">
+            <div class="inline-flex items-center gap-2 bg-white text-brand font-bold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-blue-200">
+              <i class="fa-solid fa-shield-halved"></i>
+              Prinsip Investasi ISP
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-deep tracking-tight">
+              Investasi yang Benar Itu Tenang, Bukan Bikin Senam Jantung.
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Jika Anda mencari grup telegram yang memberikan "kode saham terbang besok pagi", ISP Semarang bukan tempatnya. Namun jika Anda ingin menjadi investor mandiri yang tahu persis alasan di balik setiap pembelian saham Anda, selamat datang di rumah yang tepat.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs mt-0.5 flex-shrink-0">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-deep text-sm">Logis &amp; Berdasarkan Data</h4>
+                  <p class="text-xs text-slate-500">Menganalisis pendapatan, laba bersih, prospek industri, dan manajemen emiten.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs mt-0.5 flex-shrink-0">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-deep text-sm">Terukur &amp; Sadar Risiko</h4>
+                  <p class="text-xs text-slate-500">Menentukan batasan risiko sebelum membayangkan potensi profit (Risk first, return later).</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs mt-0.5 flex-shrink-0">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-deep text-sm">Tanpa Tekanan FOMO</h4>
+                  <p class="text-xs text-slate-500">Fokus pada rencana keuangan pribadi masing-masing tanpa terpengaruh flexing orang lain.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison Box -->
+          <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-lg">
+            <h3 class="text-lg font-extrabold text-brand-deep pb-4 border-b border-slate-100 flex items-center justify-between">
+              <span>Perbandingan Pendekatan</span>
+              <span class="text-xs font-semibold text-slate-400">Pola Pikir</span>
+            </h3>
+
+            <div class="mt-6 space-y-4">
+              <!-- Row 1 -->
+              <div class="grid grid-cols-2 gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+                <div>
+                  <span class="font-bold text-rose-600 block mb-1">
+                    <i class="fa-solid fa-xmark mr-1"></i> Mentalitas FOMO
+                  </span>
+                  <p class="text-slate-500">Beli saham karena ramai di media sosial atau bisikan influencer.</p>
+                </div>
+                <div class="border-l border-slate-200 pl-4">
+                  <span class="font-bold text-emerald-600 block mb-1">
+                    <i class="fa-solid fa-check mr-1"></i> Standar ISP Semarang
+                  </span>
+                  <p class="text-slate-700 font-medium">Beli karena memahami valuasi, prospek bisnis, dan kalkulasi risiko.</p>
+                </div>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="grid grid-cols-2 gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+                <div>
+                  <span class="font-bold text-rose-600 block mb-1">
+                    <i class="fa-solid fa-xmark mr-1"></i> Sinyal Instan
+                  </span>
+                  <p class="text-slate-500">Ketergantungan pada grup berbayar, bingung saat harga turun drastis.</p>
+                </div>
+                <div class="border-l border-slate-200 pl-4">
+                  <span class="font-bold text-emerald-600 block mb-1">
+                    <i class="fa-solid fa-check mr-1"></i> Analisis Mandiri
+                  </span>
+                  <p class="text-slate-700 font-medium">Punya trading plan/investing plan sendiri, tidur nyenyak tanpa panik.</p>
+                </div>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="grid grid-cols-2 gap-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+                <div>
+                  <span class="font-bold text-rose-600 block mb-1">
+                    <i class="fa-solid fa-xmark mr-1"></i> Judi Berkedok Investasi
+                  </span>
+                  <p class="text-slate-500">All-in modal panas dengan harapan untung cepat ratusan persen.</p>
+                </div>
+                <div class="border-l border-slate-200 pl-4">
+                  <span class="font-bold text-emerald-600 block mb-1">
+                    <i class="fa-solid fa-check mr-1"></i> Portofolio Sehat
+                  </span>
+                  <p class="text-slate-700 font-medium">Money management terukur, modal dingin, dan diversifikasi bijak.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= FINAL CTA / JOIN SECTION ================= -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-3xl bg-brand-deep text-white px-6 py-14 sm:px-12 sm:py-16 shadow-2xl border border-slate-800">
+          
+          <!-- Background Decorative Elements -->
+          <div class="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-brand/30 blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-16 -top-16 w-80 h-80 rounded-full bg-brand-light/20 blur-3xl pointer-events-none"></div>
+
+          <div class="relative max-w-3xl mx-auto text-center space-y-6">
+            <span class="inline-flex items-center gap-2 bg-brand/30 text-brand-light font-bold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-blue-400/30">
+              <i class="fa-solid fa-rocket"></i>
+              Mulai Perjalanan Investasimu
+            </span>
+
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              Siap Menjadi Investor Muda yang Mandiri, Kritis, &amp; Tangguh?
+            </h2>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+              Jangan biarkan modalmu hilang karena spekulasi buta. Bergabunglah bersama ratusan pemuda Semarang lainnya untuk belajar dan bertumbuh bersama.
+            </p>
+
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a 
+                href="https://s.id/GabungISPSemarang" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-light hover:bg-white text-brand-deep font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-200 hover:scale-105 text-base"
+              >
+                <i class="fa-solid fa-user-plus text-brand"></i>
+                <span>Gabung Komunitas (Gratis)</span>
+              </a>
+
+              <a 
+                href="https://wa.me/6281949848700" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold px-6 py-4 rounded-xl transition-all duration-200 hover:border-slate-500 text-base"
+              >
+                <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
+                <span>Konsultasi Kolaborasi</span>
+              </a>
+            </div>
+
+            <p class="text-xs text-slate-400 pt-2">
+              <i class="fa-solid fa-lock text-[10px] mr-1"></i> Gratis, inklusif, dan terbuka untuk mahasiswa maupun profesional muda di Semarang.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="contact" class="bg-slate-900 text-slate-400 pt-16 pb-12 border-t border-slate-800 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Brand & Mission (2 Cols) -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center text-brand font-extrabold text-lg">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <span class="font-extrabold text-xl text-white tracking-tight">
+              ISP <span class="text-brand-light">Semarang</span>
+            </span>
+          </div>
+
+          <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+            Komunitas independen edukasi saham bagi pemula, mahasiswa, dan generasi muda di Semarang. Belajar berinvestasi secara rasional, etis, dan berkelanjutan.
+          </p>
+
+          <!-- Disclaimer Note -->
+          <div class="text-[11px] text-slate-400 bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 max-w-sm">
+            <strong class="text-slate-300 block mb-0.5">Disclaimer Edukasi:</strong>
+            Seluruh materi dan sesi diskusi bertujuan murni untuk edukasi literasi finansial, bukan rekomendasi beli/jual saham atau penasihat investasi berlisensi.
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-3">
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider">Navigasi</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Beranda</a></li>
+            <li><a href="#about" class="hover:text-white transition-colors">Tentang Kami</a></li>
+            <li><a href="#programs" class="hover:text-white transition-colors">Program Komunitas</a></li>
+            <li><a href="#principles" class="hover:text-white transition-colors">Prinsip Belajar</a></li>
+            <li><a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Daftar Member</a></li>
+          </ul>
+        </div>
+
+        <!-- Programs Quick Access -->
+        <div class="space-y-3">
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider">Pilar Kegiatan</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-angle-right text-xs text-brand-light"></i>
+              <span>Edukasi Rutin &amp; Webinar</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-angle-right text-xs text-brand-light"></i>
+              <span>Kopdar Santai Semarang</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-angle-right text-xs text-brand-light"></i>
+              <span>Networking Kampus &amp; B2B</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-angle-right text-xs text-brand-light"></i>
+              <span>Bedah Laporan Keuangan</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social Media -->
+        <div class="space-y-3">
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider">Hubungi Kami</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-envelope text-brand-light text-sm w-4"></i>
+              <a href="mailto:kontak@ispsemarang.id" class="hover:text-white transition-colors">kontak@ispsemarang.id</a>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-brands fa-whatsapp text-emerald-400 text-sm w-4"></i>
+              <a href="https://wa.me/6281949848700" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">+62 819-4984-8700</a>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-location-dot text-rose-400 text-sm w-4 mt-0.5"></i>
+              <span>Semarang, Jawa Tengah, Indonesia</span>
+            </li>
+          </ul>
+
+          <!-- Social Media Pills -->
+          <div class="pt-2">
+            <p class="text-xs text-slate-400 mb-2">Media Sosial Resmi:</p>
+            <div class="flex items-center gap-2.5">
+              <a 
+                href="https://instagram.com/ispsemarang" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-pink-600 text-slate-300 hover:text-white flex items-center justify-center transition-all duration-200 border border-slate-700"
+                aria-label="Instagram ISP Semarang"
+                title="Instagram @ispsemarang"
+              >
+                <i class="fa-brands fa-instagram text-base"></i>
+              </a>
+
+              <a 
+                href="https://linkedin.com/company/ispsemarang" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white flex items-center justify-center transition-all duration-200 border border-slate-700"
+                aria-label="LinkedIn ISP Semarang"
+                title="LinkedIn @ispsemarang"
+              >
+                <i class="fa-brands fa-linkedin-in text-base"></i>
+              </a>
+
+              <a 
+                href="https://wa.me/6281949848700" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white flex items-center justify-center transition-all duration-200 border border-slate-700"
+                aria-label="WhatsApp ISP Semarang"
+                title="WhatsApp Kolaborasi"
+              >
+                <i class="fa-brands fa-whatsapp text-base"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>&copy; 2026 ISP (Investor Saham Pemula) Semarang. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <span class="hover:text-slate-400">Komunitas Edukasi Terbuka</span>
+          <span>•</span>
+          <span class="hover:text-slate-400">Semarang, Jawa Tengah</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= LIGHTWEIGHT VANILLA JAVASCRIPT ================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Elements
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      const header = document.getElementById('main-header');
+
+      // Mobile Menu Toggle Functionality
+      const toggleMobileMenu = () => {
+        const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+        
+        if (isExpanded) {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('fa-xmark');
+          menuIcon.classList.add('fa-bars');
+        } else {
+          mobileMenu.classList.remove('hidden');
+          menuIcon.classList.remove('fa-bars');
+          menuIcon.classList.add('fa-xmark');
+        }
+      };
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+      }
+
+      // Close mobile menu when any mobile navigation anchor is clicked
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (!mobileMenu.classList.contains('hidden')) {
+            toggleMobileMenu();
+          }
+        });
+      });
+
+      // Sticky Header Shadow on Scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          header.classList.add('shadow-md');
+        } else {
+          header.classList.remove('shadow-md');
+        }
+      }, { passive: true });
+    });
+  </script>
+</body>
+</html>
