@@ -1,0 +1,2 @@
+# Ignore raw WhatsApp image downloads (already renamed to gallery-*.jpg & logo isp.jpeg)
+WhatsApp Image*.jpeg
