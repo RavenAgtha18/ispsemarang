@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terminal Kalkulator Emiten &amp; Saham — ISP Semarang</title>
+  <meta name="description"
+    content="Suite kalkulator saham lengkap ISP Semarang: Hitung Buy & Sell return emiten BEI, simulasi compounding bunga majemuk, dividend yield, average down, dan money management risk-to-reward." />
+  <meta name="keywords"
+    content="Kalkulator Saham, Hitung Buy Sell Saham, Kalkulator Emiten BEI, Kalkulator Compounding Saham, Dividend Yield, Average Down, Money Management, ISP Semarang" />
+  <meta name="author" content="ISP Semarang" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="logo isp.jpeg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Terminal Kalkulator Emiten &amp; Saham — ISP Semarang" />
+  <meta property="og:description"
+    content="Kalkulator saham interaktif dengan visualisasi grafik (Chart.js) untuk investor dan trader logis Indonesia." />
+  <meta property="og:image" content="logo isp.jpeg" />
+
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#FAFAFA',
+            jet: '#0A0A0A',
+            surface: '#FFFFFF',
+            muted: '#6B7280',
+            subtle: '#9CA3AF',
+            navy: {
+              DEFAULT: '#0F172A',
+              subtle: '#1E293B',
+              border: '#E2E8F0'
+            },
+            hairline: 'rgba(10, 10, 10, 0.08)'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif']
+          },
+          letterSpacing: {
+            tighter: '-0.04em',
+            tight: '-0.025em'
+          },
+          transitionTimingFunction: {
+            apple: 'cubic-bezier(0.16, 1, 0.3, 1)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #FAFAFA;
+      color: #0A0A0A;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #0A0A0A;
+      color: #FAFAFA;
+    }
+
+    .hairline-b {
+      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .hairline-t {
+      border-top: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .hairline-border {
+      border: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .glass-frosted {
+      background: rgba(250, 250, 250, 0.88);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+    }
+
+    .bg-fine-grid {
+      background-image: radial-gradient(rgba(10, 10, 10, 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #FAFAFA;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #D4D4D8;
+      border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A1A1AA;
+    }
+
+    /* Tab transitions */
+    .tab-btn {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-btn.active {
+      background-color: #0A0A0A;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px -2px rgba(10, 10, 10, 0.15);
+    }
+
+    .tab-btn:not(.active) {
+      background-color: transparent;
+      color: #52525B;
+    }
+
+    .tab-btn:not(.active):hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      color: #0A0A0A;
+    }
+
+    /* Custom range slider styling */
+    input[type=range] {
+      accent-color: #0A0A0A;
+    }
+
+    /* Number inputs without arrows */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+
+<body class="bg-canvas text-jet min-h-screen flex flex-col antialiased relative">
+
+  <!-- ================= 1. NAVBAR ================= -->
+  <header id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 glass-frosted hairline-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
+
+      <!-- Brand Logo / Wordmark -->
+      <a href="index.html" class="flex items-center gap-3 group" aria-label="Kembali ke Beranda ISP Semarang">
+        <div
+          class="w-8 h-8 rounded-lg overflow-hidden border border-neutral-300/80 bg-white p-0.5 transition-transform duration-300 group-hover:scale-105">
+          <img src="logo isp.jpeg" alt="ISP Logo" class="w-full h-full object-contain rounded-md" />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm font-semibold tracking-tight text-jet flex items-center gap-1.5">
+            ISP Semarang
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          </span>
+          <span class="text-[10px] tracking-wider uppercase text-muted font-mono -mt-0.5">Terminal Kalkulator &bull;
+            Est. 2014</span>
+        </div>
+      </a>
+
+      <!-- Center Links & Breadcrumb -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-neutral-600">
+        <a href="index.html" class="hover:text-jet transition-colors duration-200 flex items-center gap-1.5">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Kembali ke Beranda</span>
+        </a>
+        <span class="text-neutral-300">|</span>
+        <a href="#suite-tabs" class="text-jet font-semibold flex items-center gap-1.5 bg-neutral-100 px-3 py-1.5 rounded-full">
+          <i data-lucide="calculator" class="w-3.5 h-3.5 text-emerald-600"></i>
+          <span>5 Tools Terintegrasi</span>
+        </a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3">
+        <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center justify-center text-xs font-semibold px-4 py-2 rounded-full bg-jet text-white hover:bg-neutral-800 transition-all duration-200 active:scale-[0.98] shadow-xs">
+          <span>Join Official WA</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 ml-1"></i>
+        </a>
+        <a href="index.html" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-neutral-200 bg-white text-jet" title="Kembali ke Beranda">
+          <i data-lucide="home" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= 2. HERO / HEADER SECTION ================= -->
+  <main class="flex-grow pt-28 sm:pt-32 pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+
+      <!-- Breadcrumb & Tag -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted mb-4">
+        <a href="index.html" class="hover:text-jet transition-colors flex items-center gap-1">
+          <i data-lucide="chevron-left" class="w-3 h-3"></i> Beranda ISP
+        </a>
+        <span>/</span>
+        <span class="text-jet font-semibold">Terminal Kalkulator Finansial</span>
+        <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          Standar BEI (1 Lot = 100 Lembar)
+        </span>
+      </div>
+
+      <!-- Header Title & Description -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-neutral-200/80">
+        <div class="max-w-3xl">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tighter text-jet">
+            Terminal Kalkulasi Saham &amp; Portofolio
+          </h1>
+          <p class="mt-3 text-sm sm:text-base text-muted leading-relaxed">
+            Kalkulator presisi tinggi untuk menghitung return emiten, impas fee bursa, bunga majemuk, dividen yield, average down, hingga money management terukur. Tanpa tebak-tebakan, murni berbasis logika matematika pasar modal.
+          </p>
+        </div>
+
+        <!-- Quick Stats Pill -->
+        <div class="flex items-center gap-3 bg-white p-3 rounded-2xl hairline-border shadow-xs text-xs">
+          <div class="w-9 h-9 rounded-xl bg-neutral-100 flex items-center justify-center text-jet">
+            <i data-lucide="cpu" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <div class="font-mono font-bold text-jet">Instant Math Engine</div>
+            <div class="text-[11px] text-muted">Auto Real-time Update &bull; Chart.js Render</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 3. TAB NAVIGATION (5 SPECIALIZED CALCULATORS) ================= -->
+      <div id="suite-tabs" class="mt-8">
+        <div class="flex items-center gap-2 p-1.5 bg-neutral-200/60 rounded-2xl overflow-x-auto scrollbar-none max-w-full">
+          
+          <button id="tab-btn-buysell" type="button" onclick="switchTab('buysell')"
+            class="tab-btn active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+            <i data-lucide="trending-up" class="w-4 h-4"></i>
+            <span>1. Jual &amp; Beli Emiten (ROI)</span>
+          </button>
+
+          <button id="tab-btn-compounding" type="button" onclick="switchTab('compounding')"
+            class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>2. Bunga Majemuk (Compounding)</span>
+          </button>
+
+          <button id="tab-btn-dividend" type="button" onclick="switchTab('dividend')"
+            class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+            <i data-lucide="wallet" class="w-4 h-4"></i>
+            <span>3. Dividen &amp; Passive Income</span>
+          </button>
+
+          <button id="tab-btn-averagedown" type="button" onclick="switchTab('averagedown')"
+            class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+            <span>4. Average Down (Multi-Order)</span>
+          </button>
+
+          <button id="tab-btn-moneymanagement" type="button" onclick="switchTab('moneymanagement')"
+            class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+            <i data-lucide="shield-alert" class="w-4 h-4"></i>
+            <span>5. Money Management (R:R)</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- ================= 4. TAB CONTENTS ================= -->
+
+      <!-- ==================== TAB 1: BUY & SELL EMITEN ==================== -->
+      <section id="tab-content-buysell" class="tab-pane mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          <!-- Left Column: Inputs & Emiten Selector -->
+          <div class="lg:col-span-7 space-y-6">
+
+            <!-- Card: Emiten Picker -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <h2 class="text-base sm:text-lg font-bold text-jet tracking-tight">Pilih atau Masukkan Kode Emiten BEI</h2>
+                </div>
+                <span class="text-[11px] font-mono text-muted">IDX Listed</span>
+              </div>
+
+              <!-- Emiten Quick Chips -->
+              <div class="mb-4">
+                <label class="block text-xs font-medium text-neutral-500 mb-2">Pilihan Cepat Emiten Populer (Klik untuk autofill):</label>
+                <div id="emiten-chips-container" class="flex flex-wrap gap-2">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+
+              <!-- Custom Emiten Input & Selected Info -->
+              <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center pt-3 border-t border-neutral-100">
+                <div class="sm:col-span-4">
+                  <label for="bs-ticker-input" class="block text-xs font-medium text-neutral-600 mb-1">Kode Emiten (4 Huruf)</label>
+                  <div class="relative">
+                    <input id="bs-ticker-input" type="text" maxlength="4" value="BBCA"
+                      class="w-full uppercase font-mono font-bold text-base px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:border-jet focus:ring-1 focus:ring-jet focus:outline-none bg-canvas"
+                      placeholder="BBCA" />
+                  </div>
+                </div>
+                <div class="sm:col-span-8">
+                  <div id="emiten-info-badge" class="p-2.5 rounded-xl bg-neutral-50 border border-neutral-200/70 text-xs">
+                    <div class="font-bold text-jet" id="emiten-name-display">Bank Central Asia Tbk</div>
+                    <div class="text-[11px] text-muted flex items-center gap-2 mt-0.5">
+                      <span id="emiten-sector-display">Sektor Financials</span>
+                      <span>&bull;</span>
+                      <span class="text-neutral-500">BEI: 1 Lot = 100 Saham</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card: Transaction Inputs -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+              <h3 class="text-base font-bold text-jet tracking-tight flex items-center gap-2">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4 text-neutral-500"></i>
+                <span>Detail Harga &amp; Volume Pembelian</span>
+              </h3>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- Harga Beli -->
+                <div>
+                  <label for="bs-buy-price" class="flex justify-between text-xs font-semibold text-neutral-700 mb-1.5">
+                    <span>Harga Beli (Buy Price)</span>
+                    <span class="text-neutral-400 font-mono">per lembar</span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-2.5 text-xs font-mono font-semibold text-neutral-400">Rp</span>
+                    <input id="bs-buy-price" type="number" min="1" step="1" value="9800"
+                      class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-neutral-300 font-mono font-semibold text-jet focus:border-jet focus:ring-1 focus:ring-jet focus:outline-none bg-canvas" />
+                  </div>
+                  <div class="flex gap-1.5 mt-2">
+                    <button type="button" onclick="adjustInput('bs-buy-price', -50)" class="text-[10px] font-mono px-2 py-1 rounded bg-neutral-100 hover:bg-neutral-200 text-neutral-600">-50</button>
+                    <button type="button" onclick="adjustInput('bs-buy-price', 50)" class="text-[10px] font-mono px-2 py-1 rounded bg-neutral-100 hover:bg-neutral-200 text-neutral-600">+50</button>
+                    <button type="button" onclick="adjustInput('bs-buy-price', 100)" class="text-[10px] font-mono px-2 py-1 rounded bg-neutral-100 hover:bg-neutral-200 text-neutral-600">+100</button>
+                  </div>
+                </div>
+
+                <!-- Harga Jual -->
+                <div>
+                  <label for="bs-sell-price" class="flex justify-between text-xs font-semibold text-neutral-700 mb-1.5">
+                    <span>Harga Jual Target/Realisasi</span>
+                    <span class="text-neutral-400 font-mono">per lembar</span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-2.5 text-xs font-mono font-semibold text-neutral-400">Rp</span>
+                    <input id="bs-sell-price" type="number" min="1" step="1" value="10600"
+                      class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-neutral-300 font-mono font-semibold text-jet focus:border-jet focus:ring-1 focus:ring-jet focus:outline-none bg-canvas" />
+                  </div>
+                  <div class="flex gap-1.5 mt-2">
+                    <button type="button" onclick="adjustInput('bs-sell-price', -50)" class="text-[10px] font-mono px-2 py-1 rounded bg-neutral-100 hover:bg-neutral-200 text-neutral-600">-50</button>
+                    <button type="button" onclick="adjustInput('bs-sell-price', 50)" class="text-[10px] font-mono px-2 py-1 rounded bg-neutral-100 hover:bg-neutral-200 text-neutral-600">+50</button>
+                    <button type="button" onclick="adjustInput('bs-sell-price', 100)" class="text-[10px] font-mono px-2 py-1 rounded bg-neutral-100 hover:bg-neutral-200 text-neutral-600">+100</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Jumlah Lot -->
+              <div>
+                <div class="flex justify-between items-center text-xs font-semibold text-neutral-700 mb-1.5">
+                  <label for="bs-lot">Jumlah Lot</label>
+                  <span id="bs-shares-count" class="font-mono text-muted text-xs">10 Lot = 1.000 Lembar</span>
+                </div>
+                <div class="flex gap-2">
+                  <div class="relative flex-grow">
+                    <input id="bs-lot" type="number" min="1" max="100000" step="1" value="10"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 font-mono font-bold text-jet focus:border-jet focus:ring-1 focus:ring-jet focus:outline-none bg-canvas" />
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <button type="button" onclick="setLot(1)" class="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-100 text-neutral-700 font-medium">1 Lot</button>
+                  <button type="button" onclick="setLot(5)" class="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-100 text-neutral-700 font-medium">5 Lot</button>
+                  <button type="button" onclick="setLot(10)" class="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-100 text-neutral-700 font-medium">10 Lot</button>
+                  <button type="button" onclick="setLot(50)" class="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-100 text-neutral-700 font-medium">50 Lot</button>
+                  <button type="button" onclick="setLot(100)" class="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-100 text-neutral-700 font-medium">100 Lot</button>
+                  <button type="button" onclick="setLot(500)" class="text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-100 text-neutral-700 font-medium">500 Lot</button>
+                </div>
+              </div>
+
+              <!-- Fee Settings (Accordion / Collapsible or Inline) -->
+              <div class="pt-4 border-t border-neutral-100">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-semibold text-neutral-700">Persentase Fee Broker &amp; Pajak Bursa</span>
+                  <span class="text-[11px] font-mono text-muted">Standar Rata-Rata BEI</span>
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                  <div>
+                    <label for="bs-buy-fee" class="block text-neutral-500 mb-1">Fee Beli (%)</label>
+                    <div class="relative">
+                      <input id="bs-buy-fee" type="number" step="0.01" min="0" max="2" value="0.15"
+                        class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono font-medium focus:border-jet focus:outline-none bg-canvas" />
+                      <span class="absolute right-3 top-2 text-neutral-400 font-mono">%</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="bs-sell-fee" class="block text-neutral-500 mb-1">Fee Jual (%) inc. PPh</label>
+                    <div class="relative">
+                      <input id="bs-sell-fee" type="number" step="0.01" min="0" max="2" value="0.25"
+                        class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono font-medium focus:border-jet focus:outline-none bg-canvas" />
+                      <span class="absolute right-3 top-2 text-neutral-400 font-mono">%</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-[11px] text-neutral-400 mt-2 leading-normal">
+                  *Fee beli lazimnya 0.15%, fee jual 0.25% (termasuk PPh final penjualan saham 0.1% dan levy BEI/KPEI/KSEI).
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Right Column: Results & Interactive Donut Chart -->
+          <div class="lg:col-span-5 space-y-6">
+
+            <!-- Result Summary Card -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+              
+              <div class="flex items-center justify-between border-b border-neutral-100 pb-4">
+                <div>
+                  <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">Hasil Perhitungan</span>
+                  <div class="text-sm font-bold text-jet flex items-center gap-1.5 mt-0.5">
+                    <span id="bs-result-ticker" class="font-mono">BBCA</span>
+                    <span class="text-neutral-400 font-normal">&bull;</span>
+                    <span id="bs-result-lots" class="text-neutral-600 font-normal">10 Lot</span>
+                  </div>
+                </div>
+                <button type="button" onclick="copyBuysellSummary()"
+                  class="text-xs font-semibold px-3 py-1.5 rounded-full border border-neutral-200 hover:bg-neutral-100 text-jet flex items-center gap-1.5 active:scale-95 transition-all">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span id="copy-btn-text">Salin Rangkuman</span>
+                </button>
+              </div>
+
+              <!-- Main Return Metric Display -->
+              <div id="bs-profit-container" class="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 transition-all duration-300">
+                <div class="flex items-center justify-between text-xs font-medium text-emerald-800 mb-1">
+                  <span>Net Profit / Loss Bersih</span>
+                  <span id="bs-roi-badge" class="font-mono font-bold text-xs px-2 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900">
+                    +8.16%
+                  </span>
+                </div>
+                <div id="bs-net-profit" class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-700 tracking-tight">
+                  +Rp 765.300
+                </div>
+                <div class="text-[11px] text-emerald-700/80 mt-1 flex items-center gap-1">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                  <span>Sudah dipotong seluruh fee beli, fee jual &amp; PPh Final 0.1%</span>
+                </div>
+              </div>
+
+              <!-- Break Even Price (BEP) Highlight -->
+              <div class="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/80 flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold text-jet flex items-center gap-1.5">
+                    <i data-lucide="target" class="w-3.5 h-3.5 text-neutral-500"></i>
+                    <span>Break-Even Price (BEP)</span>
+                  </div>
+                  <div class="text-[11px] text-muted mt-0.5">Harga jual minimal agar impas dari fee</div>
+                </div>
+                <div class="text-right">
+                  <div id="bs-bep-price" class="text-base font-bold font-mono text-jet">Rp 9.840</div>
+                  <div id="bs-bep-diff" class="text-[10px] font-mono text-neutral-500">+40 pts (+0.40%)</div>
+                </div>
+              </div>
+
+              <!-- Detailed Breakdown Table -->
+              <div class="space-y-2.5 text-xs text-neutral-600 pt-2 border-t border-neutral-100">
+                <div class="flex justify-between">
+                  <span>Total Modal Pembelian (Kotor):</span>
+                  <span id="bs-gross-buy" class="font-mono font-medium text-jet">Rp 9.800.000</span>
+                </div>
+                <div class="flex justify-between text-neutral-500">
+                  <span>Fee Beli (<span id="bs-fee-buy-pct">0.15%</span>):</span>
+                  <span id="bs-fee-buy-val" class="font-mono text-neutral-700">+Rp 14.700</span>
+                </div>
+                <div class="flex justify-between font-semibold text-jet pt-1 border-t border-dashed border-neutral-200">
+                  <span>Total Uang Dikeluarkan (Modal Bersih):</span>
+                  <span id="bs-net-buy" class="font-mono">Rp 9.814.700</span>
+                </div>
+
+                <div class="pt-2"></div>
+
+                <div class="flex justify-between">
+                  <span>Nilai Penjualan (Kotor):</span>
+                  <span id="bs-gross-sell" class="font-mono font-medium text-jet">Rp 10.600.000</span>
+                </div>
+                <div class="flex justify-between text-neutral-500">
+                  <span>Fee Jual &amp; PPh (<span id="bs-fee-sell-pct">0.25%</span>):</span>
+                  <span id="bs-fee-sell-val" class="font-mono text-neutral-700">-Rp 26.500</span>
+                </div>
+                <div class="flex justify-between font-semibold text-jet pt-1 border-t border-dashed border-neutral-200">
+                  <span>Total Dana Diterima (Hasil Bersih):</span>
+                  <span id="bs-net-sell" class="font-mono">Rp 10.573.500</span>
+                </div>
+
+                <div class="flex justify-between text-neutral-500 pt-1 text-[11px]">
+                  <span>Total Potongan Biaya (Beli + Jual):</span>
+                  <span id="bs-total-fees" class="font-mono font-semibold text-neutral-700">Rp 41.200</span>
+                </div>
+              </div>
+
+              <!-- Interactive Chart.js Donut -->
+              <div class="pt-4 border-t border-neutral-100">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-semibold text-jet">Visualisasi Komposisi Finansial</span>
+                  <span class="text-[10px] font-mono text-muted">Chart.js Real-time</span>
+                </div>
+                <div class="relative h-48 sm:h-52 flex items-center justify-center">
+                  <canvas id="buysell-donut-chart"></canvas>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: COMPOUNDING & DCA ==================== -->
+      <section id="tab-content-compounding" class="tab-pane hidden mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          <!-- Left Inputs -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+            <div class="border-b border-neutral-100 pb-4">
+              <h2 class="text-lg font-bold text-jet tracking-tight">Parameter Bunga Majemuk (Compounding Saham)</h2>
+              <p class="text-xs text-muted mt-1">Simulasikan kedahsyatan akumulasi aset melalui nabung saham rutin dan reinvestasi dividen jangka panjang.</p>
+            </div>
+
+            <!-- Modal Awal (Initial Lump Sum) -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold text-neutral-700 mb-1.5">
+                <label for="cp-initial">Modal Pokok Awal (Lump Sum)</label>
+                <span id="cp-initial-label" class="font-mono font-bold text-jet">Rp 10.000.000</span>
+              </div>
+              <input id="cp-initial" type="range" min="0" max="100000000" step="1000000" value="10000000"
+                class="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer" />
+              <div class="flex justify-between text-[10px] font-mono text-neutral-400 mt-1">
+                <span>Rp 0 (Mulai dari Nol)</span>
+                <span>Rp 50 Juta</span>
+                <span>Rp 100 Juta</span>
+              </div>
+            </div>
+
+            <!-- Setoran Rutin Bulanan (DCA) -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold text-neutral-700 mb-1.5">
+                <label for="cp-monthly">Investasi Rutin Bulanan (DCA)</label>
+                <span id="cp-monthly-label" class="font-mono font-bold text-jet">Rp 2.000.000</span>
+              </div>
+              <input id="cp-monthly" type="range" min="200000" max="20000000" step="200000" value="2000000"
+                class="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer" />
+              <div class="flex justify-between text-[10px] font-mono text-neutral-400 mt-1">
+                <span>Rp 200 Rb/bln</span>
+                <span>Rp 10 Juta/bln</span>
+                <span>Rp 20 Juta/bln</span>
+              </div>
+            </div>
+
+            <!-- Horizon Waktu (Tahun) -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold text-neutral-700 mb-1.5">
+                <label for="cp-years">Horizon Waktu Investasi</label>
+                <span id="cp-years-label" class="font-mono font-bold text-jet">15 Tahun</span>
+              </div>
+              <input id="cp-years" type="range" min="1" max="30" step="1" value="15"
+                class="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer" />
+              <div class="flex justify-between text-[10px] font-mono text-neutral-400 mt-1">
+                <span>1 Tahun</span>
+                <span>10 Tahun</span>
+                <span>20 Tahun</span>
+                <span>30 Tahun</span>
+              </div>
+            </div>
+
+            <!-- Estimasi Laju Return Tahunan (CAGR %) -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold text-neutral-700 mb-1.5">
+                <label for="cp-cagr">Estimasi Rata-rata Return Portofolio (CAGR %)</label>
+                <span id="cp-cagr-label" class="font-mono font-bold text-emerald-600">14% p.a.</span>
+              </div>
+              <input id="cp-cagr" type="range" min="5" max="30" step="1" value="14"
+                class="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer" />
+              <div class="flex justify-between text-[10px] font-mono text-neutral-400 mt-1">
+                <span>5% (Inflasi + Deposito)</span>
+                <span>11% (Historis IHSG)</span>
+                <span>15% (Quality Value)</span>
+                <span>25%+ (High Growth)</span>
+              </div>
+              
+              <!-- Quick Rate Buttons -->
+              <div class="flex flex-wrap gap-2 mt-3">
+                <button type="button" onclick="setCompoundingCagr(8)" class="text-[11px] px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-50 text-neutral-600">8% Konservatif</button>
+                <button type="button" onclick="setCompoundingCagr(11)" class="text-[11px] px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-50 text-neutral-600">11% Rata-rata IHSG</button>
+                <button type="button" onclick="setCompoundingCagr(15)" class="text-[11px] px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-50 text-neutral-600">15% Value Stock</button>
+                <button type="button" onclick="setCompoundingCagr(20)" class="text-[11px] px-2.5 py-1 rounded-lg border border-neutral-200 hover:bg-neutral-50 text-neutral-600">20% Outperform</button>
+              </div>
+            </div>
+
+            <div class="p-4 bg-neutral-50 rounded-2xl border border-neutral-200/70 text-xs text-neutral-600 leading-relaxed flex items-start gap-3">
+              <i data-lucide="info" class="w-4 h-4 text-neutral-500 mt-0.5 flex-shrink-0"></i>
+              <div>
+                <strong class="text-jet">The 8th Wonder of the World:</strong> Dalam 5-7 tahun pertama, modal pokok Anda mendominasi. Namun setelah melewati <em>tipping point</em> (tahun ke 10+), pertumbuhan bunga berbunga melesat melampaui seluruh setoran modal Anda!
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Compounding Graph & Outcomes -->
+          <div class="lg:col-span-5 space-y-6">
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+              <div class="flex items-center justify-between border-b border-neutral-100 pb-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">Proyeksi Akumulasi Aset</span>
+                <span id="cp-badge-years" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-neutral-100 text-jet">15 Tahun</span>
+              </div>
+
+              <div>
+                <div class="text-xs text-neutral-500 mb-1">Total Nilai Portofolio di Masa Depan</div>
+                <div id="cp-total-fv" class="text-3xl sm:text-4xl font-extrabold font-mono text-jet tracking-tight">
+                  Rp 1.139.800.000
+                </div>
+                <div class="flex items-center gap-2 mt-2">
+                  <span id="cp-multiplier" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                    3.08x Modal
+                  </span>
+                  <span class="text-xs text-muted">dari total modal yang disetor</span>
+                </div>
+              </div>
+
+              <!-- Breakdown Cards -->
+              <div class="grid grid-cols-2 gap-3 pt-2">
+                <div class="p-3.5 rounded-2xl bg-neutral-50 border border-neutral-200/60">
+                  <span class="text-[11px] text-muted block">Total Modal Disetor</span>
+                  <span id="cp-total-capital" class="text-sm sm:text-base font-bold font-mono text-jet mt-0.5 block">Rp 370.000.000</span>
+                </div>
+                <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200">
+                  <span class="text-[11px] text-emerald-800 block">Hasil Compounding</span>
+                  <span id="cp-total-gain" class="text-sm sm:text-base font-bold font-mono text-emerald-700 mt-0.5 block">+Rp 769.800.000</span>
+                </div>
+              </div>
+
+              <!-- Interactive Line Chart (Chart.js) -->
+              <div class="pt-4 border-t border-neutral-100">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xs font-semibold text-jet">Kurva Pertumbuhan Aset Tahunan</span>
+                  <span class="text-[10px] font-mono text-muted">Modal vs Nilai Portofolio</span>
+                </div>
+                <div class="relative h-56 sm:h-64">
+                  <canvas id="compounding-line-chart"></canvas>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <button type="button" onclick="copyCompoundingSummary()"
+                class="w-full py-3 rounded-xl border border-neutral-200 hover:bg-neutral-50 text-xs font-semibold text-jet flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span id="copy-cp-text">Salin Rencana Compounding</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: DIVIDEND & PASSIVE INCOME ==================== -->
+      <section id="tab-content-dividend" class="tab-pane hidden mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          <!-- Left Inputs -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+            <div class="border-b border-neutral-100 pb-4">
+              <h2 class="text-lg font-bold text-jet tracking-tight">Kalkulator Dividen Saham &amp; Passive Income</h2>
+              <p class="text-xs text-muted mt-1">Hitung potensi dividen tunai tahunan, dividen yield aktual, dan dividen reinvestment plan (DRIP).</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <!-- Harga Saham -->
+              <div>
+                <label for="div-price" class="block text-xs font-semibold text-neutral-700 mb-1.5">Harga Saham per Lembar</label>
+                <div class="relative">
+                  <span class="absolute left-3.5 top-2.5 text-xs font-mono font-semibold text-neutral-400">Rp</span>
+                  <input id="div-price" type="number" min="50" step="50" value="5100"
+                    class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-neutral-300 font-mono font-semibold text-jet focus:border-jet focus:outline-none bg-canvas" />
+                </div>
+                <span class="text-[10px] text-neutral-400 mt-1 block">Contoh: BBRI di ~Rp 5.100</span>
+              </div>
+
+              <!-- Jumlah Lot -->
+              <div>
+                <label for="div-lot" class="block text-xs font-semibold text-neutral-700 mb-1.5">Jumlah Lot Dimiliki</label>
+                <input id="div-lot" type="number" min="1" step="1" value="100"
+                  class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 font-mono font-semibold text-jet focus:border-jet focus:outline-none bg-canvas" />
+                <span class="text-[10px] font-mono text-muted mt-1 block" id="div-shares-label">100 Lot = 10.000 Lembar</span>
+              </div>
+            </div>
+
+            <!-- Mode Pilihan Dividen: DPS (Rupiah per Lembar) atau Yield (%) -->
+            <div class="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/80 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-jet">Metode Input Dividen</span>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="div-mode-dps-btn" onclick="setDivMode('dps')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-jet text-white">DPS (Rp)</button>
+                  <button type="button" id="div-mode-yield-btn" onclick="setDivMode('yield')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-neutral-200 text-neutral-700">Yield (%)</button>
+                </div>
+              </div>
+
+              <div id="div-dps-input-group">
+                <label for="div-dps" class="block text-xs font-medium text-neutral-600 mb-1">Dividen per Lembar (DPS)</label>
+                <div class="relative">
+                  <span class="absolute left-3.5 top-2 text-xs font-mono text-neutral-400">Rp</span>
+                  <input id="div-dps" type="number" min="1" step="1" value="319"
+                    class="w-full pl-10 pr-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-semibold bg-white" />
+                </div>
+                <span class="text-[11px] text-neutral-400 mt-1 block">DPS total dalam 1 tahun buku (Interim + Final)</span>
+              </div>
+
+              <div id="div-yield-input-group" class="hidden">
+                <label for="div-yield-input" class="block text-xs font-medium text-neutral-600 mb-1">Estimasi Dividend Yield (%)</label>
+                <div class="relative">
+                  <input id="div-yield-input" type="number" min="0.1" max="50" step="0.1" value="6.25"
+                    class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-semibold bg-white" />
+                  <span class="absolute right-3.5 top-2 text-xs font-mono text-neutral-400">%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status Pajak Dividen -->
+            <div>
+              <label class="block text-xs font-semibold text-neutral-700 mb-2">Kebijakan Pajak Dividen (UU Cipta Kerja / PMK)</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="flex items-start gap-2.5 p-3 rounded-xl border border-neutral-200 hover:border-neutral-300 cursor-pointer bg-canvas">
+                  <input type="radio" name="div-tax-option" value="free" checked onchange="updateDividendCalc()" class="mt-0.5 accent-jet" />
+                  <div>
+                    <span class="text-xs font-bold text-jet block">Bebas Pajak (0%)</span>
+                    <span class="text-[11px] text-muted">Dividen diinvestasikan kembali di NKRI minimal 3 tahun</span>
+                  </div>
+                </label>
+                <label class="flex items-start gap-2.5 p-3 rounded-xl border border-neutral-200 hover:border-neutral-300 cursor-pointer bg-canvas">
+                  <input type="radio" name="div-tax-option" value="tax10" onchange="updateDividendCalc()" class="mt-0.5 accent-jet" />
+                  <div>
+                    <span class="text-xs font-bold text-jet block">Dipotong PPh (10%)</span>
+                    <span class="text-[11px] text-muted">Ditarik langsung ke rekening tanpa reinvestasi</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Dividend Results & Visual Chart -->
+          <div class="lg:col-span-5 space-y-6">
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+              <div class="border-b border-neutral-100 pb-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">Proyeksi Dividen Tunai</span>
+                <h3 class="text-xl font-bold text-jet mt-0.5">Hasil Passive Income</h3>
+              </div>
+
+              <!-- Main Dividend Result -->
+              <div class="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200">
+                <span class="text-xs font-medium text-emerald-800 block">Total Dividen Bersih / Tahun</span>
+                <div id="div-total-net" class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-700 tracking-tight mt-1">
+                  Rp 3.190.000
+                </div>
+                <div class="flex items-center gap-2 mt-2">
+                  <span id="div-yield-badge" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">
+                    Yield 6.25%
+                  </span>
+                  <span class="text-xs text-muted">per tahun</span>
+                </div>
+              </div>
+
+              <!-- Metric Pairs -->
+              <div class="grid grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-neutral-50 border border-neutral-200/60">
+                  <span class="text-neutral-500 block text-[11px]">Setara Passive Income/Bln:</span>
+                  <span id="div-monthly-eq" class="font-mono font-bold text-jet text-sm mt-0.5 block">Rp 265.833</span>
+                </div>
+                <div class="p-3 rounded-xl bg-neutral-50 border border-neutral-200/60">
+                  <span class="text-neutral-500 block text-[11px]">Total Nilai Saham Anda:</span>
+                  <span id="div-total-stock-val" class="font-mono font-bold text-jet text-sm mt-0.5 block">Rp 51.000.000</span>
+                </div>
+              </div>
+
+              <!-- DRIP Feature (Reinvestasi) -->
+              <div class="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/70 text-xs space-y-1.5">
+                <div class="font-bold text-jet flex items-center gap-1.5">
+                  <i data-lucide="repeat" class="w-3.5 h-3.5 text-emerald-600"></i>
+                  <span>Simulasi Reinvestasi Dividen (DRIP)</span>
+                </div>
+                <p class="text-[11px] text-muted leading-relaxed">
+                  Jika dividen tahunan ini dibelikan kembali ke saham yang sama, Anda mendapatkan gratis:
+                </p>
+                <div class="font-mono font-bold text-sm text-jet">
+                  +<span id="div-free-lots">6</span> Lot Saham Tambahan
+                </div>
+              </div>
+
+              <!-- Visual Dividend Bar Chart -->
+              <div class="pt-4 border-t border-neutral-100">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-semibold text-jet">Perbandingan Modal vs Akumulasi Dividen</span>
+                </div>
+                <div class="relative h-44">
+                  <canvas id="dividend-bar-chart"></canvas>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== TAB 4: AVERAGE DOWN / MULTI-BUY ==================== -->
+      <section id="tab-content-averagedown" class="tab-pane hidden mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          <!-- Left Inputs: Tiers -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+            <div class="border-b border-neutral-100 pb-4 flex items-center justify-between">
+              <div>
+                <h2 class="text-lg font-bold text-jet tracking-tight">Kalkulator Average Down &amp; Pembelian Bertahap</h2>
+                <p class="text-xs text-muted mt-1">Hitung harga rata-rata baru saat Anda melakukan akumulasi atau averaging harga saham.</p>
+              </div>
+            </div>
+
+            <!-- Tier 1 -->
+            <div class="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/80 space-y-3">
+              <div class="flex items-center justify-between text-xs font-bold text-jet">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-jet text-white flex items-center justify-center text-[10px]">1</span>
+                  <span>Pembelian Pertama (Awal)</span>
+                </span>
+                <span class="text-[11px] text-muted font-mono" id="avg-subtotal-1">Subtotal: Rp 0</span>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="avg-p1" class="block text-[11px] text-neutral-600 mb-1">Harga Beli (Rp)</label>
+                  <input id="avg-p1" type="number" min="1" step="1" value="4000" oninput="updateAverageCalc()"
+                    class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-semibold bg-white" />
+                </div>
+                <div>
+                  <label for="avg-l1" class="block text-[11px] text-neutral-600 mb-1">Jumlah Lot</label>
+                  <input id="avg-l1" type="number" min="1" step="1" value="20" oninput="updateAverageCalc()"
+                    class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-semibold bg-white" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Tier 2 -->
+            <div class="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/80 space-y-3">
+              <div class="flex items-center justify-between text-xs font-bold text-jet">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-neutral-800 text-white flex items-center justify-center text-[10px]">2</span>
+                  <span>Pembelian Kedua (Averaging)</span>
+                </span>
+                <span class="text-[11px] text-muted font-mono" id="avg-subtotal-2">Subtotal: Rp 0</span>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="avg-p2" class="block text-[11px] text-neutral-600 mb-1">Harga Beli (Rp)</label>
+                  <input id="avg-p2" type="number" min="1" step="1" value="3500" oninput="updateAverageCalc()"
+                    class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-semibold bg-white" />
+                </div>
+                <div>
+                  <label for="avg-l2" class="block text-[11px] text-neutral-600 mb-1">Jumlah Lot</label>
+                  <input id="avg-l2" type="number" min="1" step="1" value="30" oninput="updateAverageCalc()"
+                    class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-semibold bg-white" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Tier 3 (Optional) -->
+            <div class="p-4 rounded-2xl bg-neutral-50/70 border border-neutral-200/60 space-y-3">
+              <div class="flex items-center justify-between text-xs font-semibold text-neutral-700">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-neutral-400 text-white flex items-center justify-center text-[10px]">3</span>
+                  <span>Pembelian Ketiga (Opsional)</span>
+                </span>
+                <span class="text-[11px] text-muted font-mono" id="avg-subtotal-3">Subtotal: Rp 0</span>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="avg-p3" class="block text-[11px] text-neutral-500 mb-1">Harga Beli (Rp)</label>
+                  <input id="avg-p3" type="number" min="0" step="1" placeholder="Kosongkan jika tidak ada" oninput="updateAverageCalc()"
+                    class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-medium bg-white" />
+                </div>
+                <div>
+                  <label for="avg-l3" class="block text-[11px] text-neutral-500 mb-1">Jumlah Lot</label>
+                  <input id="avg-l3" type="number" min="0" step="1" placeholder="0" oninput="updateAverageCalc()"
+                    class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-medium bg-white" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Results & Chart -->
+          <div class="lg:col-span-5 space-y-6">
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+              <div class="border-b border-neutral-100 pb-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">Hasil Rata-rata Beli</span>
+                <h3 class="text-xl font-bold text-jet mt-0.5">Average Price Baru</h3>
+              </div>
+
+              <!-- Main Average Price -->
+              <div class="p-5 rounded-2xl bg-neutral-900 text-white shadow-xs">
+                <span class="text-xs text-neutral-400 block">Harga Rata-rata (Average Price)</span>
+                <div id="avg-new-price" class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight mt-1">
+                  Rp 3.700
+                </div>
+                <div class="text-xs text-emerald-400 mt-2 flex items-center gap-1.5" id="avg-diff-label">
+                  <i data-lucide="trending-down" class="w-3.5 h-3.5"></i>
+                  <span>Turun 300 pts (-7.50%) dari harga beli awal</span>
+                </div>
+              </div>
+
+              <!-- Totals -->
+              <div class="space-y-2.5 text-xs text-neutral-600 pt-2 border-t border-neutral-100">
+                <div class="flex justify-between">
+                  <span>Total Lot Terkumpul:</span>
+                  <span id="avg-total-lots" class="font-mono font-bold text-jet">50 Lot (5.000 lembar)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Total Modal yang Dikeluarkan:</span>
+                  <span id="avg-total-capital" class="font-mono font-bold text-jet">Rp 18.500.000</span>
+                </div>
+              </div>
+
+              <!-- Visual Stepped Bar Chart -->
+              <div class="pt-4 border-t border-neutral-100">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-semibold text-jet">Komparasi Tier Pembelian vs Average</span>
+                </div>
+                <div class="relative h-44">
+                  <canvas id="average-bar-chart"></canvas>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== TAB 5: MONEY MANAGEMENT (R:R) ==================== -->
+      <section id="tab-content-moneymanagement" class="tab-pane hidden mt-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          <!-- Left Inputs -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+            <div class="border-b border-neutral-100 pb-4">
+              <h2 class="text-lg font-bold text-jet tracking-tight">Money Management &amp; Position Sizing</h2>
+              <p class="text-xs text-muted mt-1">Prinsip Capital Preservation ISP Semarang: Hitung berapa lot maksimal yang boleh dibeli agar risiko tetap aman terkontrol.</p>
+            </div>
+
+            <!-- Portfolio Capital -->
+            <div>
+              <label for="mm-total-capital" class="block text-xs font-semibold text-neutral-700 mb-1.5">Total Modal Portofolio</label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-2.5 text-xs font-mono font-semibold text-neutral-400">Rp</span>
+                <input id="mm-total-capital" type="number" min="1000000" step="1000000" value="50000000" oninput="updateMoneyManagement()"
+                  class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-neutral-300 font-mono font-semibold text-jet focus:border-jet focus:outline-none bg-canvas" />
+              </div>
+              <span class="text-[10px] text-neutral-400 mt-1 block">Total dana kas/investasi yang Anda miliki di RDN</span>
+            </div>
+
+            <!-- Risk Per Trade % -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold text-neutral-700 mb-1.5">
+                <label for="mm-risk-pct">Toleransi Risiko Maksimal per Trade (% Modal)</label>
+                <span id="mm-risk-pct-label" class="font-mono font-bold text-rose-600">2.0% (Maks Rugi: Rp 1.000.000)</span>
+              </div>
+              <input id="mm-risk-pct" type="range" min="0.5" max="5" step="0.5" value="2" oninput="updateMoneyManagement()"
+                class="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer" />
+              <div class="flex justify-between text-[10px] font-mono text-neutral-400 mt-1">
+                <span>0.5% (Ultra Aman)</span>
+                <span>1% (Disiplin Institusi)</span>
+                <span>2% (Standar Retail)</span>
+                <span>5% (Agresif)</span>
+              </div>
+            </div>
+
+            <!-- Price Setups -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div>
+                <label for="mm-entry" class="block text-xs font-semibold text-neutral-700 mb-1">Harga Beli (Entry)</label>
+                <input id="mm-entry" type="number" min="1" step="1" value="3000" oninput="updateMoneyManagement()"
+                  class="w-full px-3 py-2 rounded-xl border border-neutral-300 font-mono text-sm font-semibold bg-canvas" />
+              </div>
+              <div>
+                <label for="mm-stoploss" class="block text-xs font-semibold text-rose-700 mb-1">Cut Loss (Stop Loss)</label>
+                <input id="mm-stoploss" type="number" min="1" step="1" value="2850" oninput="updateMoneyManagement()"
+                  class="w-full px-3 py-2 rounded-xl border border-rose-300 font-mono text-sm font-semibold bg-rose-50/50" />
+                <span class="text-[10px] text-rose-600 mt-0.5 block" id="mm-sl-diff">-150 pts (-5.0%)</span>
+              </div>
+              <div>
+                <label for="mm-target" class="block text-xs font-semibold text-emerald-700 mb-1">Target Take Profit</label>
+                <input id="mm-target" type="number" min="1" step="1" value="3450" oninput="updateMoneyManagement()"
+                  class="w-full px-3 py-2 rounded-xl border border-emerald-300 font-mono text-sm font-semibold bg-emerald-50/50" />
+                <span class="text-[10px] text-emerald-600 mt-0.5 block" id="mm-tp-diff">+450 pts (+15.0%)</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Results & R:R Chart -->
+          <div class="lg:col-span-5 space-y-6">
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs space-y-6">
+              <div class="border-b border-neutral-100 pb-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">Position Sizing Disiplin</span>
+                <h3 class="text-xl font-bold text-jet mt-0.5">Rekomendasi Eksekusi</h3>
+              </div>
+
+              <!-- Recommendation Lot Box -->
+              <div class="p-5 rounded-2xl bg-neutral-900 text-white">
+                <span class="text-xs text-neutral-400 block">Batas Pembelian Maksimal</span>
+                <div id="mm-recommended-lot" class="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight mt-1">
+                  66 Lot
+                </div>
+                <div class="text-xs text-neutral-300 mt-2 flex items-center justify-between">
+                  <span>Nilai Transaksi:</span>
+                  <span id="mm-position-value" class="font-mono font-bold text-white">Rp 19.800.000</span>
+                </div>
+              </div>
+
+              <!-- Risk-Reward Ratio Metric -->
+              <div class="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/80 flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-semibold text-jet block">Rasio Risk to Reward (R:R)</span>
+                  <span id="mm-rr-status" class="text-[11px] font-medium text-emerald-700 mt-0.5 block">
+                    Sangat Ideal (Diatas 1 : 2)
+                  </span>
+                </div>
+                <div id="mm-rr-ratio" class="text-xl font-bold font-mono text-jet">
+                  1 : 3.0
+                </div>
+              </div>
+
+              <!-- Risk vs Reward Nominal Table -->
+              <div class="space-y-2 text-xs pt-1 border-t border-neutral-100">
+                <div class="flex justify-between items-center text-rose-700">
+                  <span>Maksimum Kerugian jika Cut Loss:</span>
+                  <span id="mm-max-loss-val" class="font-mono font-bold">-Rp 990.000</span>
+                </div>
+                <div class="flex justify-between items-center text-emerald-700">
+                  <span>Potensi Cuan jika Capai Target TP:</span>
+                  <span id="mm-potential-gain-val" class="font-mono font-bold">+Rp 2.970.000</span>
+                </div>
+              </div>
+
+              <!-- Chart Visual -->
+              <div class="pt-4 border-t border-neutral-100">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-semibold text-jet">Visualisasi Potensi Risiko vs Reward</span>
+                </div>
+                <div class="relative h-36">
+                  <canvas id="mm-diverging-chart"></canvas>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 5. EDUCATIONAL NOTES & DISCLAIMER ================= -->
+      <section class="mt-16 bg-white rounded-3xl p-8 sm:p-10 hairline-border">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">Prinsip &amp; Metodologi Logis</span>
+          <div class="h-px bg-neutral-200 flex-grow max-w-xs"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-muted leading-relaxed">
+          <div>
+            <h3 class="font-bold text-jet text-sm mb-2 flex items-center gap-1.5">
+              <i data-lucide="percent" class="w-4 h-4 text-neutral-600"></i>
+              <span>Struktur Biaya BEI</span>
+            </h3>
+            <p>
+              Setiap transaksi saham di Bursa Efek Indonesia dikenakan fee broker beli (~0.15%) dan fee jual (~0.25%). Fee jual sudah mencakup PPh Final Pasal 4 ayat (2) sebesar 0.1% dan levy BEI, KPEI, serta KSEI sebesar 0.043%.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-jet text-sm mb-2 flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-4 h-4 text-neutral-600"></i>
+              <span>Pentingnya BEP &amp; Sizing</span>
+            </h3>
+            <p>
+              Banyak pemula meremehkan gesekan biaya transaksi (slippage &amp; commission). Dengan mengetahui BEP (Break-Even Price) dan membatasi risiko maksimal 1-2% modal per trade, modal Anda terlindungi dari kehancuran fatal.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-jet text-sm mb-2 flex items-center gap-1.5">
+              <i data-lucide="trending-up" class="w-4 h-4 text-neutral-600"></i>
+              <span>Daya Majemuk Saham</span>
+            </h3>
+            <p>
+              Bunga majemuk saham bekerja melalui dua mesin: pertumbuhan laba bersih emiten (capital gain) dan reinvestasi dividen tunai (DRIP). Disiplin waktu dan konsistensi menabung adalah kunci utama melipatgandakan aset.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-400">
+          <span>*Seluruh alat hitung merupakan simulasi matematis murni. Bukan merupakan ajakan membeli atau menjual saham tertentu.</span>
+          <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer" class="font-semibold text-jet hover:underline flex items-center gap-1">
+            <span>Diskusi Bareng Mentor di ISP Semarang</span>
+            <i data-lucide="arrow-right" class="w-3 h-3"></i>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= 6. FOOTER ================= -->
+  <footer class="bg-white hairline-t py-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-muted">
+      <div class="flex items-center gap-3">
+        <img src="logo isp.jpeg" alt="Logo" class="w-6 h-6 object-contain rounded-md" />
+        <span>&copy; 2014 &ndash; 2026 ISP Semarang (Investor Saham Pemula). All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="hover:text-jet transition-colors">Beranda</a>
+        <a href="index.html#manifesto" class="hover:text-jet transition-colors">Manifesto</a>
+        <a href="index.html#ekosistem" class="hover:text-jet transition-colors">Ekosistem</a>
+        <a href="https://s.id/GabungISPSemarang" target="_blank" class="hover:text-jet transition-colors font-semibold text-jet">Join Komunitas</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= 7. JAVASCRIPT LOGIC & CHARTS ================= -->
+  <script>
+    // POPULAR BEI EMITENS DATABASE
+    const POPULAR_EMITENS = [
+      { code: 'BBCA', name: 'Bank Central Asia Tbk', sector: 'Financials', price: 9800 },
+      { code: 'BBRI', name: 'Bank Rakyat Indonesia Tbk', sector: 'Financials', price: 5100 },
+      { code: 'BMRI', name: 'Bank Mandiri Tbk', sector: 'Financials', price: 6900 },
+      { code: 'BBNI', name: 'Bank Negara Indonesia Tbk', sector: 'Financials', price: 5400 },
+      { code: 'ASII', name: 'Astra International Tbk', sector: 'Industrials', price: 5050 },
+      { code: 'TLKM', name: 'Telkom Indonesia Tbk', sector: 'Infrastructure', price: 3050 },
+      { code: 'ICBP', name: 'Indofood CBP Sukses Makmur Tbk', sector: 'Consumer Non-Cyclical', price: 11200 },
+      { code: 'ADRO', name: 'Adaro Energy Indonesia Tbk', sector: 'Energy', price: 3600 },
+      { code: 'AMMN', name: 'Amman Mineral Internasional Tbk', sector: 'Basic Materials', price: 10500 },
+      { code: 'BREN', name: 'Barito Renewables Energy Tbk', sector: 'Utilities', price: 9200 },
+      { code: 'BRIS', name: 'Bank Syariah Indonesia Tbk', sector: 'Financials', price: 2900 },
+      { code: 'UNVR', name: 'Unilever Indonesia Tbk', sector: 'Consumer Non-Cyclical', price: 2300 },
+      { code: 'KLBF', name: 'Kalbe Farma Tbk', sector: 'Healthcare', price: 1680 },
+      { code: 'GOTO', name: 'GoTo Gojek Tokopedia Tbk', sector: 'Technology', price: 55 }
+    ];
+
+    // Currency Formatter Helper
+    function formatIDR(val) {
+      return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0
+      }).format(val).replace('Rp', 'Rp ');
+    }
+
+    function formatNumber(val) {
+      return new Intl.NumberFormat('id-ID').format(val);
+    }
+
+    // Chart instances
+    let buysellChart = null;
+    let compoundingChart = null;
+    let dividendChart = null;
+    let averageChart = null;
+    let mmChart = null;
+
+    // Initialize Lucide Icons & Components on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initEmitenChips();
+      initBuysellCalc();
+      initCompoundingCalc();
+      initDividendCalc();
+      updateAverageCalc();
+      updateMoneyManagement();
+    });
+
+    // ================= TAB SWITCHING =================
+    function switchTab(tabId) {
+      const tabs = ['buysell', 'compounding', 'dividend', 'averagedown', 'moneymanagement'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const pane = document.getElementById(`tab-content-${t}`);
+        if (t === tabId) {
+          btn.classList.add('active');
+          pane.classList.remove('hidden');
+        } else {
+          btn.classList.remove('active');
+          pane.classList.add('hidden');
+        }
+      });
+
+      // Resize or render charts appropriately
+      setTimeout(() => {
+        if (tabId === 'buysell' && buysellChart) buysellChart.resize();
+        if (tabId === 'compounding' && compoundingChart) compoundingChart.resize();
+        if (tabId === 'dividend' && dividendChart) dividendChart.resize();
+        if (tabId === 'averagedown' && averageChart) averageChart.resize();
+        if (tabId === 'moneymanagement' && mmChart) mmChart.resize();
+      }, 50);
+
+      lucide.createIcons();
+    }
+
+    // ================= 1. BUY & SELL CALCULATOR =================
+    function initEmitenChips() {
+      const container = document.getElementById('emiten-chips-container');
+      if (!container) return;
+
+      container.innerHTML = '';
+      POPULAR_EMITENS.forEach((item, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `text-[11px] font-mono px-2.5 py-1 rounded-lg border transition-all ${
+          index === 0
+            ? 'border-neutral-900 bg-jet text-white font-bold'
+            : 'border-neutral-200 hover:border-neutral-400 bg-canvas text-neutral-700'
+        }`;
+        btn.innerHTML = `${item.code} <span class="text-[10px] opacity-70">Rp${formatNumber(item.price)}</span>`;
+        btn.onclick = () => selectEmiten(item);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectEmiten(item) {
+      const input = document.getElementById('bs-ticker-input');
+      const buyPrice = document.getElementById('bs-buy-price');
+      const sellPrice = document.getElementById('bs-sell-price');
+      
+      input.value = item.code;
+      buyPrice.value = item.price;
+      // realistic target 8% profit
+      sellPrice.value = Math.round((item.price * 1.08) / 10) * 10;
+
+      document.getElementById('emiten-name-display').textContent = item.name;
+      document.getElementById('emiten-sector-display').textContent = `Sektor ${item.sector}`;
+
+      // Highlight active chip
+      const chips = document.getElementById('emiten-chips-container').children;
+      Array.from(chips).forEach(ch => {
+        if (ch.textContent.startsWith(item.code)) {
+          ch.className = 'text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-900 bg-jet text-white font-bold';
+        } else {
+          ch.className = 'text-[11px] font-mono px-2.5 py-1 rounded-lg border border-neutral-200 hover:border-neutral-400 bg-canvas text-neutral-700';
+        }
+      });
+
+      updateBuysellCalc();
+    }
+
+    function setLot(lotCount) {
+      const lotInput = document.getElementById('bs-lot');
+      lotInput.value = lotCount;
+      updateBuysellCalc();
+    }
+
+    function adjustInput(inputId, delta) {
+      const input = document.getElementById(inputId);
+      const val = parseFloat(input.value) || 0;
+      input.value = Math.max(1, val + delta);
+      updateBuysellCalc();
+    }
+
+    function initBuysellCalc() {
+      const inputs = ['bs-ticker-input', 'bs-buy-price', 'bs-sell-price', 'bs-lot', 'bs-buy-fee', 'bs-sell-fee'];
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateBuysellCalc);
+      });
+
+      // Custom ticker uppercase listener
+      const tickerInput = document.getElementById('bs-ticker-input');
+      tickerInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.toUpperCase();
+        const found = POPULAR_EMITENS.find(it => it.code === e.target.value);
+        if (found) {
+          document.getElementById('emiten-name-display').textContent = found.name;
+          document.getElementById('emiten-sector-display').textContent = `Sektor ${found.sector}`;
+        } else {
+          document.getElementById('emiten-name-display').textContent = `Emiten ${e.target.value} (BEI)`;
+          document.getElementById('emiten-sector-display').textContent = 'Kustom Kode Emiten Saham';
+        }
+        document.getElementById('bs-result-ticker').textContent = e.target.value || 'SAHAM';
+      });
+
+      updateBuysellCalc();
+    }
+
+    function updateBuysellCalc() {
+      const ticker = (document.getElementById('bs-ticker-input').value || 'SAHAM').toUpperCase();
+      const buyPrice = parseFloat(document.getElementById('bs-buy-price').value) || 0;
+      const sellPrice = parseFloat(document.getElementById('bs-sell-price').value) || 0;
+      const lot = parseInt(document.getElementById('bs-lot').value, 10) || 0;
+      const buyFeePct = (parseFloat(document.getElementById('bs-buy-fee').value) || 0) / 100;
+      const sellFeePct = (parseFloat(document.getElementById('bs-sell-fee').value) || 0) / 100;
+
+      const totalShares = lot * 100;
+      document.getElementById('bs-shares-count').textContent = `${formatNumber(lot)} Lot = ${formatNumber(totalShares)} Lembar`;
+      document.getElementById('bs-result-ticker').textContent = ticker;
+      document.getElementById('bs-result-lots').textContent = `${lot} Lot`;
+
+      // Calculations
+      const grossBuy = buyPrice * totalShares;
+      const feeBuy = grossBuy * buyFeePct;
+      const netBuy = grossBuy + feeBuy;
+
+      const grossSell = sellPrice * totalShares;
+      const feeSell = grossSell * sellFeePct;
+      const netSell = grossSell - feeSell;
+
+      const netProfit = netSell - netBuy;
+      const roiPct = netBuy > 0 ? (netProfit / netBuy) * 100 : 0;
+      const totalFees = feeBuy + feeSell;
+
+      // BEP Formula:
+      // Net Sell = Net Buy => sellPrice * totalShares * (1 - sellFeePct) = grossBuy * (1 + buyFeePct)
+      // bepPrice = (buyPrice * (1 + buyFeePct)) / (1 - sellFeePct)
+      let bepPrice = 0;
+      if (1 - sellFeePct > 0) {
+        bepPrice = (buyPrice * (1 + buyFeePct)) / (1 - sellFeePct);
+      }
+      const bepDiffPts = Math.ceil(bepPrice) - buyPrice;
+      const bepDiffPct = buyPrice > 0 ? (bepDiffPts / buyPrice) * 100 : 0;
+
+      // DOM Updates
+      document.getElementById('bs-gross-buy').textContent = formatIDR(grossBuy);
+      document.getElementById('bs-fee-buy-pct').textContent = (buyFeePct * 100).toFixed(2) + '%';
+      document.getElementById('bs-fee-buy-val').textContent = '+' + formatIDR(feeBuy);
+      document.getElementById('bs-net-buy').textContent = formatIDR(netBuy);
+
+      document.getElementById('bs-gross-sell').textContent = formatIDR(grossSell);
+      document.getElementById('bs-fee-sell-pct').textContent = (sellFeePct * 100).toFixed(2) + '%';
+      document.getElementById('bs-fee-sell-val').textContent = '-' + formatIDR(feeSell);
+      document.getElementById('bs-net-sell').textContent = formatIDR(netSell);
+      document.getElementById('bs-total-fees').textContent = formatIDR(totalFees);
+
+      document.getElementById('bs-bep-price').textContent = formatIDR(Math.ceil(bepPrice));
+      document.getElementById('bs-bep-diff').textContent = `+${formatNumber(bepDiffPts)} pts (+${bepDiffPct.toFixed(2)}%)`;
+
+      // Profit container colors & values
+      const profitContainer = document.getElementById('bs-profit-container');
+      const netProfitEl = document.getElementById('bs-net-profit');
+      const roiBadge = document.getElementById('bs-roi-badge');
+
+      if (netProfit >= 0) {
+        profitContainer.className = 'p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 transition-all duration-300';
+        netProfitEl.className = 'text-2xl sm:text-3xl font-extrabold font-mono text-emerald-700 tracking-tight';
+        netProfitEl.textContent = '+' + formatIDR(netProfit);
+        roiBadge.className = 'font-mono font-bold text-xs px-2 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900';
+        roiBadge.textContent = '+' + roiPct.toFixed(2) + '%';
+      } else {
+        profitContainer.className = 'p-5 rounded-2xl bg-rose-50/70 border border-rose-200 transition-all duration-300';
+        netProfitEl.className = 'text-2xl sm:text-3xl font-extrabold font-mono text-rose-700 tracking-tight';
+        netProfitEl.textContent = formatIDR(netProfit);
+        roiBadge.className = 'font-mono font-bold text-xs px-2 py-0.5 rounded-full bg-rose-200/80 text-rose-900';
+        roiBadge.textContent = roiPct.toFixed(2) + '%';
+      }
+
+      renderBuysellChart(grossBuy, Math.max(0, netProfit), totalFees, netProfit < 0 ? Math.abs(netProfit) : 0);
+    }
+
+    function renderBuysellChart(capital, profit, fees, loss) {
+      const ctx = document.getElementById('buysell-donut-chart');
+      if (!ctx) return;
+
+      const data = loss > 0 
+        ? [Math.max(0, capital - loss), fees, loss]
+        : [capital, fees, profit];
+
+      const labels = loss > 0 
+        ? ['Modal Tersisa', 'Fee & Pajak', 'Rugi Bersih']
+        : ['Modal Pokok', 'Fee & Pajak', 'Net Profit'];
+
+      const colors = loss > 0
+        ? ['#0A0A0A', '#6B7280', '#F43F5E']
+        : ['#0A0A0A', '#94A3B8', '#10B981'];
+
+      if (buysellChart) {
+        buysellChart.data.labels = labels;
+        buysellChart.data.datasets[0].data = data;
+        buysellChart.data.datasets[0].backgroundColor = colors;
+        buysellChart.update();
+      } else {
+        buysellChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: data,
+              backgroundColor: colors,
+              borderWidth: 2,
+              borderColor: '#FFFFFF',
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  boxWidth: 12,
+                  font: { family: 'Plus Jakarta Sans', size: 11 }
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ` ${context.label}: ${formatIDR(context.raw)}`;
+                  }
+                }
+              }
+            },
+            cutout: '70%'
+          }
+        });
+      }
+    }
+
+    function copyBuysellSummary() {
+      const ticker = document.getElementById('bs-ticker-input').value || 'SAHAM';
+      const buyPrice = document.getElementById('bs-buy-price').value;
+      const sellPrice = document.getElementById('bs-sell-price').value;
+      const lots = document.getElementById('bs-lot').value;
+      const netProfit = document.getElementById('bs-net-profit').textContent;
+      const roi = document.getElementById('bs-roi-badge').textContent;
+      const bep = document.getElementById('bs-bep-price').textContent;
+
+      const text = `📊 *RANGKUMAN KALKULASI EMITEN (${ticker}) — ISP SEMARANG*\n` +
+        `• Harga Beli: Rp ${formatNumber(buyPrice)} (${lots} Lot)\n` +
+        `• Target Jual: Rp ${formatNumber(sellPrice)}\n` +
+        `• Titik Impas (BEP): ${bep}\n` +
+        `• Net Profit / Loss: ${netProfit} (${roi})\n` +
+        `Dihitung dengan Terminal Kalkulator Saham: ispsemarang.id/kalkulator.html`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        btnText.textContent = 'Tersalin!';
+        setTimeout(() => { btnText.textContent = 'Salin Rangkuman'; }, 2000);
+      });
+    }
+
+    // ================= 2. COMPOUNDING CALCULATOR =================
+    function initCompoundingCalc() {
+      const sliders = ['cp-initial', 'cp-monthly', 'cp-years', 'cp-cagr'];
+      sliders.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateCompoundingCalc);
+      });
+      updateCompoundingCalc();
+    }
+
+    function setCompoundingCagr(rate) {
+      document.getElementById('cp-cagr').value = rate;
+      updateCompoundingCalc();
+    }
+
+    function updateCompoundingCalc() {
+      const initial = parseFloat(document.getElementById('cp-initial').value) || 0;
+      const monthly = parseFloat(document.getElementById('cp-monthly').value) || 0;
+      const years = parseInt(document.getElementById('cp-years').value, 10) || 1;
+      const cagr = (parseFloat(document.getElementById('cp-cagr').value) || 0) / 100;
+
+      document.getElementById('cp-initial-label').textContent = formatIDR(initial);
+      document.getElementById('cp-monthly-label').textContent = formatIDR(monthly);
+      document.getElementById('cp-years-label').textContent = `${years} Tahun`;
+      document.getElementById('cp-cagr-label').textContent = `${(cagr * 100).toFixed(0)}% p.a.`;
+      document.getElementById('cp-badge-years').textContent = `${years} Tahun`;
+
+      // Year-by-year compounding projection
+      const labels = [];
+      const capitalData = [];
+      const portfolioData = [];
+
+      let currentPortfolio = initial;
+      let totalCapital = initial;
+      const monthlyRate = cagr / 12;
+
+      labels.push('Th 0');
+      capitalData.push(totalCapital);
+      portfolioData.push(currentPortfolio);
+
+      for (let y = 1; y <= years; y++) {
+        for (let m = 1; m <= 12; m++) {
+          currentPortfolio = (currentPortfolio + monthly) * (1 + monthlyRate);
+          totalCapital += monthly;
+        }
+        labels.push(`Th ${y}`);
+        capitalData.push(Math.round(totalCapital));
+        portfolioData.push(Math.round(currentPortfolio));
+      }
+
+      const totalGain = Math.max(0, currentPortfolio - totalCapital);
+      const multiplier = totalCapital > 0 ? (currentPortfolio / totalCapital).toFixed(2) : '1.0';
+
+      document.getElementById('cp-total-fv').textContent = formatIDR(currentPortfolio);
+      document.getElementById('cp-total-capital').textContent = formatIDR(totalCapital);
+      document.getElementById('cp-total-gain').textContent = '+' + formatIDR(totalGain);
+      document.getElementById('cp-multiplier').textContent = `${multiplier}x Modal`;
+
+      renderCompoundingChart(labels, capitalData, portfolioData);
+    }
+
+    function renderCompoundingChart(labels, capitalData, portfolioData) {
+      const ctx = document.getElementById('compounding-line-chart');
+      if (!ctx) return;
+
+      if (compoundingChart) {
+        compoundingChart.data.labels = labels;
+        compoundingChart.data.datasets[0].data = capitalData;
+        compoundingChart.data.datasets[1].data = portfolioData;
+        compoundingChart.update();
+      } else {
+        compoundingChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Modal Pokok Disetor',
+                data: capitalData,
+                borderColor: '#94A3B8',
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 1,
+                tension: 0.1
+              },
+              {
+                label: 'Nilai Portofolio (Compounding)',
+                data: portfolioData,
+                borderColor: '#10B981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                fill: true,
+                borderWidth: 2.5,
+                pointRadius: 2,
+                pointBackgroundColor: '#10B981',
+                tension: 0.25
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            },
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: {
+                  boxWidth: 12,
+                  font: { family: 'Plus Jakarta Sans', size: 11 }
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ` ${context.dataset.label}: ${formatIDR(context.raw)}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function(val) {
+                    if (val >= 1000000000) return 'Rp ' + (val / 1000000000).toFixed(1) + ' M';
+                    if (val >= 1000000) return 'Rp ' + (val / 1000000).toFixed(0) + ' Jt';
+                    return formatIDR(val);
+                  },
+                  font: { family: 'JetBrains Mono', size: 10 }
+                },
+                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+              },
+              x: {
+                ticks: { font: { family: 'Plus Jakarta Sans', size: 10 } },
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function copyCompoundingSummary() {
+      const fv = document.getElementById('cp-total-fv').textContent;
+      const capital = document.getElementById('cp-total-capital').textContent;
+      const gain = document.getElementById('cp-total-gain').textContent;
+      const years = document.getElementById('cp-years-label').textContent;
+      const cagr = document.getElementById('cp-cagr-label').textContent;
+
+      const text = `📈 *SIMULASI COMPOUNDING SAHAM — ISP SEMARANG*\n` +
+        `• Horizon: ${years} (CAGR: ${cagr})\n` +
+        `• Total Modal Disetor: ${capital}\n` +
+        `• Akumulasi Hasil Bunga Majemuk: ${gain}\n` +
+        `• Estimasi Nilai Akhir Portofolio: ${fv}\n` +
+        `Hitung simulasi lengkap Anda di: ispsemarang.id/kalkulator.html`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copy-cp-text');
+        btnText.textContent = 'Rencana Compounding Tersalin!';
+        setTimeout(() => { btnText.textContent = 'Salin Rencana Compounding'; }, 2000);
+      });
+    }
+
+    // ================= 3. DIVIDEND CALCULATOR =================
+    let currentDivMode = 'dps';
+
+    function setDivMode(mode) {
+      currentDivMode = mode;
+      const dpsBtn = document.getElementById('div-mode-dps-btn');
+      const yieldBtn = document.getElementById('div-mode-yield-btn');
+      const dpsGroup = document.getElementById('div-dps-input-group');
+      const yieldGroup = document.getElementById('div-yield-input-group');
+
+      if (mode === 'dps') {
+        dpsBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-jet text-white';
+        yieldBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-neutral-200 text-neutral-700';
+        dpsGroup.classList.remove('hidden');
+        yieldGroup.classList.add('hidden');
+      } else {
+        yieldBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-jet text-white';
+        dpsBtn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold bg-neutral-200 text-neutral-700';
+        yieldGroup.classList.remove('hidden');
+        dpsGroup.classList.add('hidden');
+      }
+      updateDividendCalc();
+    }
+
+    function initDividendCalc() {
+      ['div-price', 'div-lot', 'div-dps', 'div-yield-input'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateDividendCalc);
+      });
+      updateDividendCalc();
+    }
+
+    function updateDividendCalc() {
+      const price = parseFloat(document.getElementById('div-price').value) || 0;
+      const lot = parseInt(document.getElementById('div-lot').value, 10) || 0;
+      const totalShares = lot * 100;
+      const totalStockVal = price * totalShares;
+
+      document.getElementById('div-shares-label').textContent = `${formatNumber(lot)} Lot = ${formatNumber(totalShares)} Lembar`;
+
+      let dps = 0;
+      let yieldPct = 0;
+
+      if (currentDivMode === 'dps') {
+        dps = parseFloat(document.getElementById('div-dps').value) || 0;
+        yieldPct = price > 0 ? (dps / price) * 100 : 0;
+      } else {
+        yieldPct = parseFloat(document.getElementById('div-yield-input').value) || 0;
+        dps = (yieldPct / 100) * price;
+      }
+
+      const grossDiv = dps * totalShares;
+
+      // Tax option
+      const taxOption = document.querySelector('input[name="div-tax-option"]:checked')?.value || 'free';
+      const taxRate = taxOption === 'tax10' ? 0.10 : 0.0;
+      const netDiv = grossDiv * (1 - taxRate);
+      const monthlyEq = netDiv / 12;
+
+      // DRIP (Free lots)
+      const freeLots = price > 0 ? Math.floor(netDiv / (price * 100)) : 0;
+
+      document.getElementById('div-total-net').textContent = formatIDR(netDiv);
+      document.getElementById('div-yield-badge').textContent = `Yield ${yieldPct.toFixed(2)}%`;
+      document.getElementById('div-monthly-eq').textContent = formatIDR(monthlyEq);
+      document.getElementById('div-total-stock-val').textContent = formatIDR(totalStockVal);
+      document.getElementById('div-free-lots').textContent = formatNumber(freeLots);
+
+      renderDividendChart(totalStockVal, netDiv);
+    }
+
+    function renderDividendChart(stockVal, annualDiv) {
+      const ctx = document.getElementById('dividend-bar-chart');
+      if (!ctx) return;
+
+      const labels = ['Tahun 1', 'Tahun 3 (Akumulasi)', 'Tahun 5 (Akumulasi)'];
+      const divAccum = [annualDiv, annualDiv * 3, annualDiv * 5];
+
+      if (dividendChart) {
+        dividendChart.data.datasets[0].data = divAccum;
+        dividendChart.update();
+      } else {
+        dividendChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Total Dividen Tunai Diterima',
+              data: divAccum,
+              backgroundColor: ['#0A0A0A', '#059669', '#10B981'],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    return ` Dividen: ${formatIDR(ctx.raw)}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function(val) {
+                    return 'Rp ' + formatNumber(val);
+                  },
+                  font: { family: 'JetBrains Mono', size: 10 }
+                },
+                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+              },
+              x: {
+                ticks: { font: { family: 'Plus Jakarta Sans', size: 10 } },
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // ================= 4. AVERAGE DOWN CALCULATOR =================
+    function updateAverageCalc() {
+      const p1 = parseFloat(document.getElementById('avg-p1').value) || 0;
+      const l1 = parseInt(document.getElementById('avg-l1').value, 10) || 0;
+      const p2 = parseFloat(document.getElementById('avg-p2').value) || 0;
+      const l2 = parseInt(document.getElementById('avg-l2').value, 10) || 0;
+      const p3 = parseFloat(document.getElementById('avg-p3').value) || 0;
+      const l3 = parseInt(document.getElementById('avg-l3').value, 10) || 0;
+
+      const sub1 = p1 * l1 * 100;
+      const sub2 = p2 * l2 * 100;
+      const sub3 = p3 * l3 * 100;
+
+      document.getElementById('avg-subtotal-1').textContent = `Subtotal: ${formatIDR(sub1)}`;
+      document.getElementById('avg-subtotal-2').textContent = `Subtotal: ${formatIDR(sub2)}`;
+      document.getElementById('avg-subtotal-3').textContent = `Subtotal: ${formatIDR(sub3)}`;
+
+      const totalCapital = sub1 + sub2 + sub3;
+      const totalLots = l1 + l2 + l3;
+      const totalShares = totalLots * 100;
+
+      const newAvg = totalShares > 0 ? totalCapital / totalShares : 0;
+      const diffInitial = p1 > 0 ? newAvg - p1 : 0;
+      const diffPct = p1 > 0 ? (diffInitial / p1) * 100 : 0;
+
+      document.getElementById('avg-new-price').textContent = formatIDR(Math.round(newAvg));
+      document.getElementById('avg-total-lots').textContent = `${formatNumber(totalLots)} Lot (${formatNumber(totalShares)} lembar)`;
+      document.getElementById('avg-total-capital').textContent = formatIDR(totalCapital);
+
+      const diffLabel = document.getElementById('avg-diff-label');
+      if (diffInitial < 0) {
+        diffLabel.className = 'text-xs text-emerald-600 mt-2 flex items-center gap-1.5';
+        diffLabel.innerHTML = `<i data-lucide="trending-down" class="w-3.5 h-3.5"></i> <span>Turun ${formatNumber(Math.abs(Math.round(diffInitial)))} pts (${diffPct.toFixed(2)}%) dari harga awal</span>`;
+      } else if (diffInitial > 0) {
+        diffLabel.className = 'text-xs text-rose-600 mt-2 flex items-center gap-1.5';
+        diffLabel.innerHTML = `<i data-lucide="trending-up" class="w-3.5 h-3.5"></i> <span>Naik +${formatNumber(Math.round(diffInitial))} pts (+${diffPct.toFixed(2)}%) dari harga awal</span>`;
+      } else {
+        diffLabel.className = 'text-xs text-neutral-500 mt-2';
+        diffLabel.textContent = 'Sama dengan harga beli pertama';
+      }
+
+      lucide.createIcons();
+      renderAverageChart(p1, p2, p3, Math.round(newAvg));
+    }
+
+    function renderAverageChart(p1, p2, p3, avgPrice) {
+      const ctx = document.getElementById('average-bar-chart');
+      if (!ctx) return;
+
+      const labels = ['Beli 1', 'Beli 2'];
+      const data = [p1, p2];
+      if (p3 > 0) {
+        labels.push('Beli 3');
+        data.push(p3);
+      }
+      labels.push('Avg Baru');
+      data.push(avgPrice);
+
+      const colors = ['#334155', '#475569'];
+      if (p3 > 0) colors.push('#64748B');
+      colors.push('#10B981'); // Avg highlight
+
+      if (averageChart) {
+        averageChart.data.labels = labels;
+        averageChart.data.datasets[0].data = data;
+        averageChart.data.datasets[0].backgroundColor = colors;
+        averageChart.update();
+      } else {
+        averageChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Harga per Lembar (Rp)',
+              data: data,
+              backgroundColor: colors,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    return ` Harga: ${formatIDR(ctx.raw)}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function(val) { return 'Rp ' + formatNumber(val); },
+                  font: { family: 'JetBrains Mono', size: 10 }
+                },
+                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+              },
+              x: {
+                ticks: { font: { family: 'Plus Jakarta Sans', size: 10 } },
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // ================= 5. MONEY MANAGEMENT (R:R) =================
+    function updateMoneyManagement() {
+      const capital = parseFloat(document.getElementById('mm-total-capital').value) || 0;
+      const riskPct = parseFloat(document.getElementById('mm-risk-pct').value) || 0;
+      const entry = parseFloat(document.getElementById('mm-entry').value) || 0;
+      const sl = parseFloat(document.getElementById('mm-stoploss').value) || 0;
+      const tp = parseFloat(document.getElementById('mm-target').value) || 0;
+
+      const maxLossAllowed = capital * (riskPct / 100);
+      document.getElementById('mm-risk-pct-label').textContent = `${riskPct.toFixed(1)}% (Maks Rugi: ${formatIDR(maxLossAllowed)})`;
+
+      const riskPerShare = Math.max(0, entry - sl);
+      const rewardPerShare = Math.max(0, tp - entry);
+
+      const slDiffPts = sl - entry;
+      const slDiffPct = entry > 0 ? (slDiffPts / entry) * 100 : 0;
+      document.getElementById('mm-sl-diff').textContent = `${formatNumber(slDiffPts)} pts (${slDiffPct.toFixed(1)}%)`;
+
+      const tpDiffPts = tp - entry;
+      const tpDiffPct = entry > 0 ? (tpDiffPts / entry) * 100 : 0;
+      document.getElementById('mm-tp-diff').textContent = `+${formatNumber(tpDiffPts)} pts (+${tpDiffPct.toFixed(1)}%)`;
+
+      // Position Sizing: lot = maxLossAllowed / (riskPerShare * 100)
+      let recommendedLot = 0;
+      if (riskPerShare > 0) {
+        recommendedLot = Math.floor(maxLossAllowed / (riskPerShare * 100));
+      }
+      // Safety cap: position value should not exceed total capital
+      if (entry * 100 > 0) {
+        const maxLotByCapital = Math.floor(capital / (entry * 100));
+        recommendedLot = Math.min(recommendedLot, maxLotByCapital);
+      }
+
+      const positionVal = recommendedLot * 100 * entry;
+      const actualMaxLoss = recommendedLot * 100 * riskPerShare;
+      const actualPotentialGain = recommendedLot * 100 * rewardPerShare;
+
+      const rrRatio = riskPerShare > 0 ? (rewardPerShare / riskPerShare).toFixed(2) : '0';
+
+      document.getElementById('mm-recommended-lot').textContent = `${formatNumber(recommendedLot)} Lot`;
+      document.getElementById('mm-position-value').textContent = formatIDR(positionVal);
+      document.getElementById('mm-rr-ratio').textContent = `1 : ${rrRatio}`;
+      document.getElementById('mm-max-loss-val').textContent = '-' + formatIDR(actualMaxLoss);
+      document.getElementById('mm-potential-gain-val').textContent = '+' + formatIDR(actualPotentialGain);
+
+      const rrStatus = document.getElementById('mm-rr-status');
+      if (parseFloat(rrRatio) >= 2.0) {
+        rrStatus.className = 'text-[11px] font-medium text-emerald-700 mt-0.5 block';
+        rrStatus.textContent = 'Sangat Ideal (Diatas 1 : 2)';
+      } else if (parseFloat(rrRatio) >= 1.5) {
+        rrStatus.className = 'text-[11px] font-medium text-neutral-600 mt-0.5 block';
+        rrStatus.textContent = 'Cukup Layak (1 : 1.5)';
+      } else {
+        rrStatus.className = 'text-[11px] font-medium text-rose-600 mt-0.5 block';
+        rrStatus.textContent = 'Kurang Ideal (Risiko Terlalu Besar dibanding Potensi Cuan)';
+      }
+
+      renderMoneyManagementChart(actualMaxLoss, actualPotentialGain);
+    }
+
+    function renderMoneyManagementChart(risk, reward) {
+      const ctx = document.getElementById('mm-diverging-chart');
+      if (!ctx) return;
+
+      if (mmChart) {
+        mmChart.data.datasets[0].data = [risk, reward];
+        mmChart.update();
+      } else {
+        mmChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Potensi Risiko (Loss)', 'Potensi Cuan (Reward)'],
+            datasets: [{
+              label: 'Nominal (Rp)',
+              data: [risk, reward],
+              backgroundColor: ['#F43F5E', '#10B981'],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    return ` Nominal: ${formatIDR(ctx.raw)}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                ticks: {
+                  callback: function(val) { return 'Rp ' + formatNumber(val); },
+                  font: { family: 'JetBrains Mono', size: 10 }
+                },
+                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+              },
+              y: {
+                ticks: { font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } },
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
