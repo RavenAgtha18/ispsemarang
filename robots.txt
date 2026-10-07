@@ -1,0 +1,6 @@
+# robots.txt for ISP Semarang (https://ispsemarang.my.id)
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://ispsemarang.my.id/sitemap.xml
