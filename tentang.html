@@ -140,7 +140,7 @@
 
     body {
       background-color: #F8FAFC;
-      background-image: 
+      background-image:
         radial-gradient(at 10% 12%, rgba(2, 132, 199, 0.12) 0px, transparent 50%),
         radial-gradient(at 90% 18%, rgba(37, 99, 235, 0.10) 0px, transparent 50%),
         radial-gradient(at 50% 45%, rgba(56, 189, 248, 0.08) 0px, transparent 60%),
@@ -160,16 +160,36 @@
 
     /* Ambient Subtle Sky Orbs Animation */
     @keyframes floatOrb1 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(50px, 35px) scale(1.15); }
-    }
-    @keyframes floatOrb2 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-45px, 45px) scale(0.9); }
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(50px, 35px) scale(1.15);
+      }
     }
 
-    .orb-1 { animation: floatOrb1 20s ease-in-out infinite; }
-    .orb-2 { animation: floatOrb2 25s ease-in-out infinite; }
+    @keyframes floatOrb2 {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(-45px, 45px) scale(0.9);
+      }
+    }
+
+    .orb-1 {
+      animation: floatOrb1 20s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      animation: floatOrb2 25s ease-in-out infinite;
+    }
 
     /* Floating Capsule Dock Glass Effect (Putih Biru Clean) */
     .capsule-dock {
@@ -197,12 +217,14 @@
     /* Architectural Blueprint Grid Pattern */
     .bg-grid-blueprint {
       background-image: linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
       background-size: 32px 32px;
     }
 
     /* Touch & Click Safety Guard */
-    #bg-canvas, .ambient-orb, .bg-grid-blueprint {
+    #bg-canvas,
+    .ambient-orb,
+    .bg-grid-blueprint {
       pointer-events: none !important;
       user-select: none !important;
       -webkit-user-select: none !important;
@@ -217,9 +239,15 @@
 
   <!-- Animated Background Layer 2: Subtle Ambient Glowing Orbs -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-sky-200/40 blur-[130px] orb-1 ambient-orb"></div>
-    <div class="absolute top-1/3 -right-32 w-[650px] h-[650px] rounded-full bg-blue-100/50 blur-[140px] orb-2 ambient-orb"></div>
-    <div class="absolute -bottom-32 left-1/4 w-[550px] h-[550px] rounded-full bg-indigo-100/40 blur-[130px] ambient-orb"></div>
+    <div
+      class="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-sky-200/40 blur-[130px] orb-1 ambient-orb">
+    </div>
+    <div
+      class="absolute top-1/3 -right-32 w-[650px] h-[650px] rounded-full bg-blue-100/50 blur-[140px] orb-2 ambient-orb">
+    </div>
+    <div
+      class="absolute -bottom-32 left-1/4 w-[550px] h-[550px] rounded-full bg-indigo-100/40 blur-[130px] ambient-orb">
+    </div>
   </div>
 
   <!-- Animated Background Layer 3: Blueprint Grid Overlay -->
@@ -227,14 +255,19 @@
 
   <!-- ================= 1. FLOATING CAPSULE NAVBAR (PUTIH BIRU CLEAN) ================= -->
   <header class="fixed top-3 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none">
-    <div class="max-w-5xl mx-auto flex items-center justify-between pointer-events-auto capsule-dock rounded-full px-4 sm:px-6 py-2 sm:py-2.5 transition-all duration-300">
-      
+    <div
+      class="max-w-5xl mx-auto flex items-center justify-between pointer-events-auto capsule-dock rounded-full px-4 sm:px-6 py-2 sm:py-2.5 transition-all duration-300">
+
       <!-- Left: Logo & Wordmark -->
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <img src="logo isp.jpeg" alt="Logo ISP" class="w-8 h-8 rounded-full object-contain border border-slate-200 shadow-xs group-hover:scale-105 transition-transform" />
+        <img src="logo isp.jpeg" alt="Logo ISP"
+          class="w-8 h-8 rounded-full object-contain border border-slate-200 shadow-xs group-hover:scale-105 transition-transform" />
         <div class="flex flex-col text-left">
-          <span class="text-xs sm:text-sm font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">ISP SEMARANG</span>
-          <span class="hidden sm:block text-[8px] font-mono tracking-widest text-slate-500 uppercase font-semibold">EST. 2014 &bull; IDX COMMUNITY</span>
+          <span
+            class="text-xs sm:text-sm font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">ISP
+            SEMARANG</span>
+          <span class="hidden sm:block text-[8px] font-mono tracking-widest text-slate-500 uppercase font-semibold">EST.
+            2014 &bull; IDX COMMUNITY</span>
         </div>
       </a>
 
@@ -243,13 +276,15 @@
         <a href="index.html" class="hover:text-blue-600 transition-colors">Beranda</a>
         <a href="tentang.html" class="text-blue-600 font-bold transition-colors">Tentang &amp; Pengurus</a>
         <a href="index.html#kemitraan" class="hover:text-blue-600 transition-colors flex items-center gap-1.5">
-          <span>Kemitraan Saham</span>
-          <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200">Partner</span>
+          <span>Kemitraan</span>
+          <span
+            class="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200">Partner</span>
         </a>
         <a href="index.html#galeri" class="hover:text-blue-600 transition-colors">Dokumentasi</a>
         <a href="kalkulator.html" class="hover:text-blue-600 transition-colors flex items-center gap-1">
           <span>Kalkulator</span>
-          <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-sky-50 text-sky-700 border border-sky-200">8 Tools</span>
+          <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-sky-50 text-sky-700 border border-sky-200">8
+            Tools</span>
         </a>
       </nav>
 
@@ -277,21 +312,26 @@
     </div>
 
     <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="hidden md:hidden max-w-sm mx-auto mt-2 bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-3xl p-5 shadow-xl pointer-events-auto">
+    <div id="mobile-menu"
+      class="hidden md:hidden max-w-sm mx-auto mt-2 bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-3xl p-5 shadow-xl pointer-events-auto">
       <div class="flex flex-col space-y-2.5 text-xs font-semibold text-slate-700 text-left">
         <a href="index.html" class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between">
           <span>Beranda Utama</span>
           <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
         </a>
-        <a href="tentang.html" class="mobile-link py-2 border-b border-slate-100 font-bold text-blue-600 flex items-center justify-between">
+        <a href="tentang.html"
+          class="mobile-link py-2 border-b border-slate-100 font-bold text-blue-600 flex items-center justify-between">
           <span>Tentang &amp; Dewan Pembina</span>
           <i data-lucide="check" class="w-3.5 h-3.5 text-blue-600"></i>
         </a>
-        <a href="index.html#kemitraan" class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between font-bold text-slate-900">
+        <a href="index.html#kemitraan"
+          class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between font-bold text-slate-900">
           <span>Kemitraan ISP x Sniper Saham</span>
-          <span class="px-2 py-0.5 rounded-full text-[9px] bg-blue-50 text-blue-700 border border-blue-200">Buka RDN</span>
+          <span class="px-2 py-0.5 rounded-full text-[9px] bg-blue-50 text-blue-700 border border-blue-200">Buka
+            RDN</span>
         </a>
-        <a href="index.html#galeri" class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between">
+        <a href="index.html#galeri"
+          class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between">
           <span>Dokumentasi Kopdar</span>
           <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
         </a>
@@ -321,7 +361,8 @@
     <!-- Hero Header -->
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 text-center lg:text-left">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-blue-200 text-[11px] font-mono text-blue-800 mb-4 shadow-xs font-semibold">
+        <div
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-blue-200 text-[11px] font-mono text-blue-800 mb-4 shadow-xs font-semibold">
           <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
           <span>Profil Komunitas &bull; Resmi Sejak 2014</span>
         </div>
@@ -336,33 +377,40 @@
       </div>
 
       <!-- Vision Hero Box (Rich Deep Royal Navy) -->
-      <div class="mt-10 p-7 sm:p-11 rounded-3xl bg-gradient-to-br from-[#0B2545] via-[#081E38] to-[#041224] text-white border border-sky-500/25 shadow-2xl relative overflow-hidden text-left">
+      <div
+        class="mt-10 p-7 sm:p-11 rounded-3xl bg-gradient-to-br from-[#0B2545] via-[#081E38] to-[#041224] text-white border border-sky-500/25 shadow-2xl relative overflow-hidden text-left">
         <div class="absolute -top-32 -right-32 w-80 h-80 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none">
+        </div>
 
         <div class="relative z-10 max-w-2xl">
-          <span class="text-xs font-bold font-mono tracking-wider uppercase text-sky-300 block mb-2">Visi Utama Komunitas</span>
+          <span class="text-xs font-bold font-mono tracking-wider uppercase text-sky-300 block mb-2">Visi Utama
+            Komunitas</span>
           <blockquote class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
             &ldquo;Memajukan Pasar Modal Indonesia Berbasis Investor Domestik yang Cerdas&rdquo;
           </blockquote>
           <p class="mt-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
             Menjadikan investor pemula di Indonesia mampu berdiri di atas kaki sendiri melalui pemahaman laporan
-            keuangan, valuasi wajar, dan manajemen risiko&mdash;bukan terjebak dalam pusaran spekulasi dan pom-pom sesaat.
+            keuangan, valuasi wajar, dan manajemen risiko&mdash;bukan terjebak dalam pusaran spekulasi dan pom-pom
+            sesaat.
           </p>
         </div>
 
         <div class="mt-8 pt-6 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-6 relative z-10 text-left">
           <div class="space-y-1">
             <span class="text-xs font-bold text-sky-300">01. Solid &amp; Inklusif</span>
-            <p class="text-xs text-slate-300 leading-relaxed">Merangkul seluruh lapisan masyarakat dan mahasiswa dari nol pengetahuan.</p>
+            <p class="text-xs text-slate-300 leading-relaxed">Merangkul seluruh lapisan masyarakat dan mahasiswa dari
+              nol pengetahuan.</p>
           </div>
           <div class="space-y-1">
             <span class="text-xs font-bold text-sky-300">02. Literasi Beretika</span>
-            <p class="text-xs text-slate-300 leading-relaxed">Menolak tegas pom-pom saham gorengan dan praktik titip dana ilegal.</p>
+            <p class="text-xs text-slate-300 leading-relaxed">Menolak tegas pom-pom saham gorengan dan praktik titip
+              dana ilegal.</p>
           </div>
           <div class="space-y-1">
             <span class="text-xs font-bold text-sky-300">03. Dampak Nyata</span>
-            <p class="text-xs text-slate-300 leading-relaxed">Membina ribuan investor ritel muda dengan daya saing dan analisa mandiri.</p>
+            <p class="text-xs text-slate-300 leading-relaxed">Membina ribuan investor ritel muda dengan daya saing dan
+              analisa mandiri.</p>
           </div>
         </div>
       </div>
@@ -386,7 +434,8 @@
 
       <div class="tactile-card rounded-3xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-8 space-y-3.5">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold">
             <span class="w-2 h-2 rounded-full bg-blue-600"></span>
             <span>Ketua Chapter Semarang</span>
           </div>
@@ -398,11 +447,13 @@
           </p>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
             Di bawah kepemimpinan Rio Ardie Fernando, ISP Semarang berfokus menghadirkan ruang diskusi yang aman bagi
-            siapa saja&mdash;terutama mahasiswa (UNDIP, UNNES, UDINUS, POLINES, dsb) serta profesional pemula di Semarang yang ingin
+            siapa saja&mdash;terutama mahasiswa (UNDIP, UNNES, UDINUS, POLINES, dsb) serta profesional pemula di
+            Semarang yang ingin
             mendalami pasar modal tanpa rasa takut dan tanpa tekanan sinyal berbayar.
           </p>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Kegiatan tatap muka seperti kopdar akhir pekan di cafe sekitar Tembalang dan Kota Lama, bedah laporan keuangan
+            Kegiatan tatap muka seperti kopdar akhir pekan di cafe sekitar Tembalang dan Kota Lama, bedah laporan
+            keuangan
             langsung dari laptop, hingga kunjungan resmi ke kantor sekuritas diawasi langsung untuk menjamin 100%
             kegiatan murni edukasi finansial.
           </p>
@@ -417,19 +468,24 @@
           </div>
         </div>
 
-        <div class="lg:col-span-4 bg-slate-50/90 p-5 rounded-2xl border border-slate-200 space-y-3 text-xs text-slate-600">
-          <span class="font-bold text-slate-900 block text-xs uppercase tracking-wider font-mono">Fokus Gerakan Semarang:</span>
+        <div
+          class="lg:col-span-4 bg-slate-50/90 p-5 rounded-2xl border border-slate-200 space-y-3 text-xs text-slate-600">
+          <span class="font-bold text-slate-900 block text-xs uppercase tracking-wider font-mono">Fokus Gerakan
+            Semarang:</span>
           <div class="flex items-start gap-2.5">
             <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5"></i>
-            <span><strong>Kopdar Tatap Muka Bebas Biaya:</strong> Diskusi hangat mingguan di cafe Tembalang &amp; Kota Lama.</span>
+            <span><strong>Kopdar Tatap Muka Bebas Biaya:</strong> Diskusi hangat mingguan di cafe Tembalang &amp; Kota
+              Lama.</span>
           </div>
           <div class="flex items-start gap-2.5">
             <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5"></i>
-            <span><strong>Screening Saham Mandiri:</strong> Buka laptop bareng dan audit CALK serta laporan audited IDX.</span>
+            <span><strong>Screening Saham Mandiri:</strong> Buka laptop bareng dan audit CALK serta laporan audited
+              IDX.</span>
           </div>
           <div class="flex items-start gap-2.5">
             <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5"></i>
-            <span><strong>Koneksi Industri Saham:</strong> Kunjungan ke sekuritas dan institusi pasar modal resmi berizin OJK.</span>
+            <span><strong>Koneksi Industri Saham:</strong> Kunjungan ke sekuritas dan institusi pasar modal resmi
+              berizin OJK.</span>
           </div>
         </div>
       </div>
@@ -445,7 +501,8 @@
           Bimbingan Tokoh Kunci Pasar Modal Indonesia
         </h2>
         <p class="mt-1.5 text-xs sm:text-sm text-slate-500 max-w-xl">
-          ISP berdiri kokoh berkat arahan dewan pembina tetap mantan pimpinan bursa yang meletakkan fondasi integritas nasional.
+          ISP berdiri kokoh berkat arahan dewan pembina tetap mantan pimpinan bursa yang meletakkan fondasi integritas
+          nasional.
         </p>
       </div>
 
@@ -454,7 +511,8 @@
         <!-- Dr. Tito Sulistio -->
         <div class="tactile-card p-6 rounded-2xl space-y-3.5">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">
+            <span
+              class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">
               Pembina Tetap
             </span>
             <i data-lucide="award" class="w-5 h-5 text-blue-600"></i>
@@ -472,7 +530,8 @@
         <!-- Nicky Hogan -->
         <div class="tactile-card p-6 rounded-2xl space-y-3.5">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">
+            <span
+              class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">
               Pembina Tetap
             </span>
             <i data-lucide="award" class="w-5 h-5 text-blue-600"></i>
@@ -482,7 +541,8 @@
             <p class="text-xs font-bold text-slate-500 mt-0.5">Direktur Pengembangan BEI (2015&ndash;2018)</p>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed pt-2 border-t border-slate-100">
-            Inisiator kampanye legendaris nasional &ldquo;Yuk Nabung Saham&rdquo; yang mentransformasi pasar modal Indonesia menjadi
+            Inisiator kampanye legendaris nasional &ldquo;Yuk Nabung Saham&rdquo; yang mentransformasi pasar modal
+            Indonesia menjadi
             ramah, inklusif, dan terbuka bagi generasi muda.
           </p>
         </div>
@@ -490,7 +550,8 @@
         <!-- Try Putera Analdo -->
         <div class="tactile-card p-6 rounded-2xl space-y-3.5">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">
+            <span
+              class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">
               Pembina Tetap
             </span>
             <i data-lucide="shield-check" class="w-5 h-5 text-blue-600"></i>
@@ -524,7 +585,8 @@
         <!-- Frisca Devi Choirina -->
         <div class="tactile-card p-6 rounded-2xl space-y-3">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-slate-900 text-white">
+            <span
+              class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-slate-900 text-white">
               Founder ISP
             </span>
             <i data-lucide="sparkles" class="w-5 h-5 text-amber-500"></i>
@@ -540,7 +602,8 @@
         <!-- Asep Bagus -->
         <div class="tactile-card p-6 rounded-2xl space-y-3">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-slate-100 text-slate-700">
+            <span
+              class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-slate-100 text-slate-700">
               Ketua Nasional
             </span>
             <i data-lucide="users" class="w-5 h-5 text-slate-600"></i>
@@ -555,7 +618,8 @@
         <!-- Wakil Ketua -->
         <div class="tactile-card p-6 rounded-2xl space-y-3">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-slate-100 text-slate-700">
+            <span
+              class="text-[11px] font-bold font-mono uppercase tracking-wider px-2.5 py-1 rounded bg-slate-100 text-slate-700">
               Wakil Ketua Nasional
             </span>
             <i data-lucide="users" class="w-5 h-5 text-slate-600"></i>
@@ -563,7 +627,8 @@
           <h3 class="text-base font-black text-slate-900">Alif Buna M. &amp; Raditya Krisna P.</h3>
           <p class="text-xs text-slate-500 font-semibold">Wakil Ketua BPH Nasional</p>
           <p class="text-xs text-slate-600 leading-relaxed pt-2 border-t border-slate-100">
-            Mengorkestrasi kurikulum edukasi, riset, serta penguatan sinergi generasi muda di industri pasar modal Indonesia.
+            Mengorkestrasi kurikulum edukasi, riset, serta penguatan sinergi generasi muda di industri pasar modal
+            Indonesia.
           </p>
         </div>
 
@@ -572,12 +637,14 @@
 
     <!-- Closing Callout (Clean Blue & White) -->
     <section class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-18 text-center">
-      <div class="bg-gradient-to-br from-blue-50 via-sky-50/60 to-white text-slate-900 rounded-3xl p-7 sm:p-14 border border-blue-200/80 shadow-xl relative overflow-hidden">
+      <div
+        class="bg-gradient-to-br from-blue-50 via-sky-50/60 to-white text-slate-900 rounded-3xl p-7 sm:p-14 border border-blue-200/80 shadow-xl relative overflow-hidden">
         <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight max-w-xl mx-auto leading-tight">
           Ingin Belajar Bersama Tim &amp; Anggota ISP Semarang?
         </h2>
         <p class="mt-3.5 text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-          Daftarkan diri Anda untuk masuk ke grup komunitas resmi ISP Semarang dan hadiri agenda kopdar tatap muka gratis kami akhir pekan ini.
+          Daftarkan diri Anda untuk masuk ke grup komunitas resmi ISP Semarang dan hadiri agenda kopdar tatap muka
+          gratis kami akhir pekan ini.
         </p>
         <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
@@ -600,14 +667,16 @@
   </main>
 
   <!-- ================= 7. WORLD-CLASS 100% RESPONSIVE FOOTER (PUTIH BIRU CLEAN) ================= -->
-  <footer class="relative z-10 border-t border-slate-200/90 bg-white/90 backdrop-blur-md text-slate-500 pt-12 pb-8 text-xs">
-    
+  <footer
+    class="relative z-10 border-t border-slate-200/90 bg-white/90 backdrop-blur-md text-slate-500 pt-12 pb-8 text-xs">
+
     <!-- Outer Container -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       <!-- Mobile Quick-Action Strip (Visible on mobile/tablet) -->
       <div class="sm:hidden mb-8 pb-6 border-b border-slate-200">
-        <span class="text-[10px] font-mono uppercase tracking-widest text-blue-600 font-bold block mb-3 text-left">AKSES CEPAT KOMUNITAS:</span>
+        <span class="text-[10px] font-mono uppercase tracking-widest text-blue-600 font-bold block mb-3 text-left">AKSES
+          CEPAT KOMUNITAS:</span>
         <div class="grid grid-cols-1 gap-2.5">
           <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
             class="flex items-center justify-between p-3.5 rounded-2xl bg-blue-50 border border-blue-200 text-blue-800 font-bold text-xs">
@@ -626,26 +695,32 @@
       </div>
 
       <!-- Main Footer Columns (Responsive Grid) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-slate-200 text-left">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-slate-200 text-left">
 
         <!-- Column 1: Identity & Story (Span 5) -->
         <div class="lg:col-span-5 space-y-4">
           <div class="flex items-center gap-3">
-            <img src="logo isp.jpeg" alt="ISP Semarang" class="w-8 h-8 rounded-full object-contain border border-slate-200 p-0.5 bg-white shadow-xs" />
+            <img src="logo isp.jpeg" alt="ISP Semarang"
+              class="w-8 h-8 rounded-full object-contain border border-slate-200 p-0.5 bg-white shadow-xs" />
             <div>
               <span class="text-sm font-black text-slate-900 tracking-tight block">ISP SEMARANG</span>
-              <span class="text-[9px] font-mono tracking-widest text-blue-600 uppercase font-bold">KOMUNITAS INVESTOR SAHAM PEMULA</span>
+              <span class="text-[9px] font-mono tracking-widest text-blue-600 uppercase font-bold">KOMUNITAS INVESTOR
+                SAHAM PEMULA</span>
             </div>
           </div>
-          
+
           <p class="text-xs text-slate-500 leading-relaxed max-w-sm">
-            Wadah belajar dan diskusi pasar modal independen di Kota Semarang yang berdiri sejak 2014. Dibina oleh praktisi dan mantan pimpinan Bursa Efek Indonesia. Murni edukasi logika bisnis tanpa titip dana dan tanpa pom-pom.
+            Wadah belajar dan diskusi pasar modal independen di Kota Semarang yang berdiri sejak 2014. Dibina oleh
+            praktisi dan mantan pimpinan Bursa Efek Indonesia. Murni edukasi logika bisnis tanpa titip dana dan tanpa
+            pom-pom.
           </p>
 
           <div class="pt-1 flex flex-wrap items-center gap-2 text-[10px] font-mono text-slate-500">
             <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200">Semarang, ID</span>
             <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200">Est. 2014</span>
-            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200 font-bold">Free Edukasi</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200 font-bold">Free
+              Edukasi</span>
           </div>
         </div>
 
@@ -656,7 +731,8 @@
             <li><a href="index.html" class="hover:text-blue-600 transition-colors">Beranda</a></li>
             <li><a href="index.html#nilai" class="hover:text-blue-600 transition-colors">Pilar Komunitas</a></li>
             <li><a href="index.html#galeri" class="hover:text-blue-600 transition-colors">Dokumentasi Kopdar</a></li>
-            <li><a href="tentang.html" class="text-blue-600 font-bold transition-colors">Tentang &amp; Dewan Pembina</a></li>
+            <li><a href="tentang.html" class="text-blue-600 font-bold transition-colors">Tentang &amp; Dewan Pembina</a>
+            </li>
           </ul>
         </div>
 
@@ -664,16 +740,21 @@
         <div class="lg:col-span-2 space-y-3">
           <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 block">Terminal Tools</span>
           <ul class="space-y-2 text-xs text-slate-600 font-medium">
-            <li><a href="kalkulator.html" class="hover:text-blue-600 transition-colors flex items-center gap-1"><span>Kalkulator BEP</span></a></li>
-            <li><a href="kalkulator.html#compounding-card" class="hover:text-blue-600 transition-colors">Bunga Majemuk</a></li>
+            <li><a href="kalkulator.html"
+                class="hover:text-blue-600 transition-colors flex items-center gap-1"><span>Kalkulator BEP</span></a>
+            </li>
+            <li><a href="kalkulator.html#compounding-card" class="hover:text-blue-600 transition-colors">Bunga
+                Majemuk</a></li>
             <li><a href="kalkulator.html#avg-card" class="hover:text-blue-600 transition-colors">Average Down</a></li>
-            <li><a href="kalkulator.html#dividend-card" class="hover:text-blue-600 transition-colors">Dividen Yield</a></li>
+            <li><a href="kalkulator.html#dividend-card" class="hover:text-blue-600 transition-colors">Dividen Yield</a>
+            </li>
           </ul>
         </div>
 
         <!-- Column 4: Official Action & Secretariat (Span 3) -->
         <div class="lg:col-span-3 space-y-3">
-          <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 block">Pendaftaran &amp; RDN</span>
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 block">Pendaftaran &amp;
+            RDN</span>
           <ul class="space-y-2 text-xs text-slate-600">
             <li>
               <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
@@ -702,16 +783,22 @@
       </div>
 
       <!-- Regulatory Disclaimer Box -->
-      <div class="my-6 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-[11px] text-slate-500 leading-relaxed text-left flex items-start gap-3">
+      <div
+        class="my-6 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-[11px] text-slate-500 leading-relaxed text-left flex items-start gap-3">
         <i data-lucide="shield-alert" class="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5"></i>
         <div>
-          <span class="font-bold text-slate-700 block mb-0.5">Disclaimer Edukasi &amp; Peringatan Risiko Pasar Modal:</span>
-          Komunitas Investor Saham Pemula (ISP) Semarang adalah wadah literasi independen nirlaba, bukan Penasihat Investasi atau Manajer Investasi berizin OJK. Kami tidak pernah menghimpun atau mengelola dana masyarakat dalam bentuk apapun. Seluruh konten, tools kalkulator, dan diskusi merupakan materi edukasi publik. Segala keputusan jual/beli saham merupakan tanggung jawab penuh investor pribadi.
+          <span class="font-bold text-slate-700 block mb-0.5">Disclaimer Edukasi &amp; Peringatan Risiko Pasar
+            Modal:</span>
+          Komunitas Investor Saham Pemula (ISP) Semarang adalah wadah literasi independen nirlaba, bukan Penasihat
+          Investasi atau Manajer Investasi berizin OJK. Kami tidak pernah menghimpun atau mengelola dana masyarakat
+          dalam bentuk apapun. Seluruh konten, tools kalkulator, dan diskusi merupakan materi edukasi publik. Segala
+          keputusan jual/beli saham merupakan tanggung jawab penuh investor pribadi.
         </div>
       </div>
 
       <!-- Bottom Copyright & Local Attribution Bar -->
-      <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px] text-slate-400">
+      <div
+        class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px] text-slate-400">
         <p>&copy; 2014&ndash;2026 <strong>ISP Semarang</strong> (Investor Saham Pemula). All rights reserved.</p>
         <div class="flex items-center gap-3 text-slate-400">
           <span>Kota Semarang, Jawa Tengah</span>
@@ -777,7 +864,7 @@
             ctx.arc(x, y, 3, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(2, 132, 199, 0.35)';
             ctx.fill();
-            
+
             // Halo
             ctx.beginPath();
             ctx.arc(x, y, 7, 0, Math.PI * 2);
