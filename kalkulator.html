@@ -268,11 +268,16 @@
       </nav>
 
       <!-- Right Actions -->
-      <div class="flex items-center gap-3">
-        <a href="https://wa.me/6281949848700?text=Halo%20Admin%20ISP%20Semarang,%20saya%20ingin%20bergabung%20dengan%20komunitas%20Investor%20Saham%20Pemula%20(ISP)%20Semarang." target="_blank" rel="noopener noreferrer"
+      <div class="flex items-center gap-2">
+        <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
+          class="hidden sm:inline-flex items-center justify-center text-xs font-semibold px-3.5 py-2 rounded-full border border-neutral-300 bg-neutral-100/70 hover:bg-neutral-200 text-jet transition-all duration-200 active:scale-[0.98]">
+          <span>Buka RDN</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 ml-1 text-neutral-500"></i>
+        </a>
+        <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
           class="inline-flex items-center justify-center text-xs font-semibold px-4 py-2 rounded-full bg-jet text-white hover:bg-neutral-800 transition-all duration-200 active:scale-[0.98] shadow-xs">
-          <span>Join Official WA</span>
-          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 ml-1"></i>
+          <span>Daftar Member</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1 text-emerald-400"></i>
         </a>
         <a href="index.html" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-neutral-200 bg-white text-jet" title="Kembali ke Beranda">
           <i data-lucide="home" class="w-4 h-4"></i>
@@ -1571,17 +1576,39 @@
   </main>
 
   <!-- ================= 6. FOOTER ================= -->
-  <footer class="bg-white hairline-t py-12 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-muted">
-      <div class="flex items-center gap-3">
-        <img src="logo isp.jpeg" alt="Logo" class="w-6 h-6 object-contain rounded-md" />
-        <span>&copy; 2014 &ndash; 2026 ISP Semarang (Investor Saham Pemula). All rights reserved.</span>
+    <!-- ================= FOOTER ================= -->
+  <footer class="bg-white hairline-t py-10 mt-auto border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      
+      <!-- Mobile Quick Actions -->
+      <div class="sm:hidden mb-6 pb-6 border-b border-slate-200 text-left">
+        <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-600 font-bold block mb-2">AKSES CEPAT:</span>
+        <div class="grid grid-cols-1 gap-2">
+          <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
+            class="flex items-center justify-between p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs">
+            <span>Buka Akun Saham (Sniper Saham)</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-emerald-600"></i>
+          </a>
+          <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
+            class="flex items-center justify-between p-3 rounded-xl bg-slate-900 text-white font-bold text-xs">
+            <span>Formulir Member Resmi ISP</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-400"></i>
+          </a>
+        </div>
       </div>
-      <div class="flex items-center gap-6">
-        <a href="index.html" class="hover:text-jet transition-colors">Beranda</a>
-        <a href="tentang.html" class="hover:text-jet transition-colors">Tentang &amp; Pengurus</a>
-        <a href="index.html#galeri" class="hover:text-jet transition-colors">Dokumentasi</a>
-        <a href="https://wa.me/6281949848700?text=Halo%20Admin%20ISP%20Semarang,%20saya%20ingin%20bergabung%20dengan%20komunitas%20Investor%20Saham%20Pemula%20(ISP)%20Semarang." target="_blank" rel="noopener noreferrer" class="hover:text-jet transition-colors font-semibold text-jet">Join Komunitas</a>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500 text-center md:text-left">
+        <div class="flex items-center gap-3">
+          <img src="logo isp.jpeg" alt="Logo ISP" class="w-6 h-6 object-contain rounded-md" />
+          <span>&copy; 2014 &ndash; 2026 <strong>ISP Semarang</strong> (Investor Saham Pemula). All rights reserved.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-medium">
+          <a href="index.html" class="hover:text-slate-900 transition-colors">Beranda</a>
+          <a href="tentang.html" class="hover:text-slate-900 transition-colors">Tentang &amp; Pengurus</a>
+          <a href="index.html#galeri" class="hover:text-slate-900 transition-colors">Dokumentasi</a>
+          <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 transition-colors font-bold text-slate-800">Daftar ISP Semarang</a>
+          <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-700 transition-colors font-bold text-emerald-600">Buka Akun Saham (Sniper Saham) &rarr;</a>
+        </div>
       </div>
     </div>
   </footer>
