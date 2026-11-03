@@ -137,42 +137,73 @@
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <style>
+    <style>
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
     body {
+      background-color: #F8FAFC;
+      background-image: 
+        radial-gradient(at 10% 12%, rgba(2, 132, 199, 0.12) 0px, transparent 50%),
+        radial-gradient(at 90% 18%, rgba(37, 99, 235, 0.10) 0px, transparent 50%),
+        radial-gradient(at 50% 45%, rgba(56, 189, 248, 0.08) 0px, transparent 60%),
+        radial-gradient(at 20% 80%, rgba(2, 132, 199, 0.09) 0px, transparent 55%),
+        radial-gradient(at 85% 85%, rgba(30, 64, 175, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: #0F172A;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #FAFAFA;
-      color: #0A0A0A;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
     ::selection {
-      background: #0A0A0A;
-      color: #FAFAFA;
+      background: #0284C7;
+      color: #FFFFFF;
     }
 
-    .hairline-b {
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+    /* Ambient Subtle Sky Orbs Animation */
+    @keyframes floatOrb1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, 35px) scale(1.15); }
+    }
+    @keyframes floatOrb2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-45px, 45px) scale(0.9); }
     }
 
-    .hairline-t {
-      border-top: 1px solid rgba(10, 10, 10, 0.08);
+    .orb-1 { animation: floatOrb1 20s ease-in-out infinite; }
+    .orb-2 { animation: floatOrb2 25s ease-in-out infinite; }
+
+    /* Floating Capsule Dock Glass Effect (Putih Biru Clean) */
+    .capsule-dock {
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 8px 30px -4px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
     }
 
-    .hairline-border {
-      border: 1px solid rgba(10, 10, 10, 0.08);
+    /* Tactile Luxury White-Blue Cards */
+    .tactile-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .glass-frosted {
-      background: rgba(250, 250, 250, 0.88);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
+    .tactile-card:hover {
+      border-color: rgba(2, 132, 199, 0.45);
+      box-shadow: 0 20px 40px -12px rgba(2, 132, 199, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      transform: translateY(-2px);
     }
 
-    .bg-fine-grid {
-      background-image: radial-gradient(rgba(10, 10, 10, 0.06) 1px, transparent 1px);
-      background-size: 28px 28px;
+    /* Architectural Blueprint Grid Pattern */
+    .bg-grid-blueprint {
+      background-image: linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
 
     /* Custom scrollbar */
@@ -180,18 +211,15 @@
       width: 6px;
       height: 6px;
     }
-
     ::-webkit-scrollbar-track {
-      background: #FAFAFA;
+      background: #F1F5F9;
     }
-
     ::-webkit-scrollbar-thumb {
-      background: #D4D4D8;
+      background: #CBD5E1;
       border-radius: 9999px;
     }
-
     ::-webkit-scrollbar-thumb:hover {
-      background: #A1A1AA;
+      background: #94A3B8;
     }
 
     /* Tab transitions */
@@ -200,24 +228,24 @@
     }
 
     .tab-btn.active {
-      background-color: #0A0A0A;
+      background-color: #0284C7;
       color: #FFFFFF;
-      box-shadow: 0 2px 8px -2px rgba(10, 10, 10, 0.15);
+      box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35);
     }
 
     .tab-btn:not(.active) {
       background-color: transparent;
-      color: #52525B;
+      color: #475569;
     }
 
     .tab-btn:not(.active):hover {
-      background-color: rgba(0, 0, 0, 0.04);
-      color: #0A0A0A;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #0F172A;
     }
 
     /* Custom range slider styling */
     input[type=range] {
-      accent-color: #0A0A0A;
+      accent-color: #0284C7;
     }
 
     /* Number inputs without arrows */
@@ -226,69 +254,121 @@
       -webkit-appearance: none;
       margin: 0;
     }
-
     input[type=number] {
       -moz-appearance: textfield;
+    }
+
+    /* Touch & Click Safety Guard */
+    #bg-canvas, .ambient-orb, .bg-grid-blueprint {
+      pointer-events: none !important;
+      user-select: none !important;
+      -webkit-user-select: none !important;
     }
   </style>
 </head>
 
-<body class="bg-canvas text-jet min-h-screen flex flex-col antialiased relative">
+<body class="relative min-h-screen flex flex-col">
 
-  <!-- ================= 1. NAVBAR ================= -->
-  <header id="main-nav"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 glass-frosted hairline-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
+  <!-- Animated Background Layer 1: Living Topographic Financial Waves Canvas -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-50"></canvas>
 
-      <!-- Brand Logo / Wordmark -->
-      <a href="index.html" class="flex items-center gap-3 group" aria-label="Kembali ke Beranda ISP Semarang">
-        <div
-          class="w-8 h-8 rounded-lg overflow-hidden border border-neutral-300/80 bg-white p-0.5 transition-transform duration-300 group-hover:scale-105">
-          <img src="logo isp.jpeg" alt="ISP Logo" class="w-full h-full object-contain rounded-md" />
-        </div>
-        <div class="flex flex-col">
-          <span class="text-sm font-semibold tracking-tight text-jet flex items-center gap-1.5">
-            ISP Semarang
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          </span>
-          <span class="text-[10px] tracking-wider uppercase text-muted font-mono -mt-0.5">Terminal Kalkulator &bull;
-            Est. 2014</span>
+  <!-- Animated Background Layer 2: Subtle Ambient Glowing Orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-sky-200/40 blur-[130px] orb-1 ambient-orb"></div>
+    <div class="absolute top-1/3 -right-32 w-[650px] h-[650px] rounded-full bg-blue-100/50 blur-[140px] orb-2 ambient-orb"></div>
+    <div class="absolute -bottom-32 left-1/4 w-[550px] h-[550px] rounded-full bg-indigo-100/40 blur-[130px] ambient-orb"></div>
+  </div>
+
+  <!-- Animated Background Layer 3: Blueprint Grid Overlay -->
+  <div class="fixed inset-0 pointer-events-none z-0 bg-grid-blueprint opacity-60"></div>
+
+  <!-- ================= 1. FLOATING CAPSULE NAVBAR (PUTIH BIRU CLEAN) ================= -->
+  <header class="fixed top-3 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none">
+    <div class="max-w-5xl mx-auto flex items-center justify-between pointer-events-auto capsule-dock rounded-full px-4 sm:px-6 py-2 sm:py-2.5 transition-all duration-300">
+      
+      <!-- Left: Logo & Wordmark -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <img src="logo isp.jpeg" alt="Logo ISP" class="w-8 h-8 rounded-full object-contain border border-slate-200 shadow-xs group-hover:scale-105 transition-transform" />
+        <div class="flex flex-col text-left">
+          <span class="text-xs sm:text-sm font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">ISP SEMARANG</span>
+          <span class="hidden sm:block text-[8px] font-mono tracking-widest text-slate-500 uppercase font-semibold">EST. 2014 &bull; IDX COMMUNITY</span>
         </div>
       </a>
 
-      <!-- Center Links & Breadcrumb -->
-      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-neutral-600">
-        <a href="index.html" class="hover:text-jet transition-colors duration-200 flex items-center gap-1.5">
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-          <span>Kembali ke Beranda</span>
+      <!-- Center: Clean Minimal Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
+        <a href="index.html" class="hover:text-blue-600 transition-colors">Beranda</a>
+        <a href="tentang.html" class="hover:text-blue-600 transition-colors">Tentang &amp; Pengurus</a>
+        <a href="index.html#kemitraan" class="hover:text-blue-600 transition-colors flex items-center gap-1.5">
+          <span>Kemitraan Saham</span>
+          <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200">Partner</span>
         </a>
-        <span class="text-neutral-300">|</span>
-        <a href="#suite-tabs"
-          class="text-jet font-semibold flex items-center gap-1.5 bg-neutral-100 px-3 py-1.5 rounded-full">
-          <i data-lucide="calculator" class="w-3.5 h-3.5 text-emerald-600"></i>
-          <span>8 Tools Terintegrasi</span>
+        <a href="index.html#galeri" class="hover:text-blue-600 transition-colors">Dokumentasi</a>
+        <a href="kalkulator.html" class="text-blue-600 font-bold transition-colors flex items-center gap-1">
+          <span>Kalkulator</span>
+          <span class="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-sky-50 text-sky-700 border border-sky-200">8 Tools</span>
         </a>
       </nav>
 
-      <!-- Right Actions -->
-      <div class="flex items-center gap-2">
-        <a href="https://login.miraeasset.co.id/registration/oe?referralcode=3103411coba" target="_blank" rel="noopener noreferrer"
-          class="hidden sm:inline-flex items-center justify-center text-xs font-semibold px-3.5 py-2 rounded-full border border-neutral-300 bg-neutral-100/70 hover:bg-neutral-200 text-jet transition-all duration-200 active:scale-[0.98]">
+      <!-- Right: Action Pills -->
+      <div class="hidden sm:flex items-center gap-2">
+        <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition-all active:scale-[0.98] shadow-2xs">
           <span>Buka RDN</span>
-          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 ml-1 text-neutral-500"></i>
+          <i data-lucide="arrow-up-right" class="w-3 h-3 text-slate-400"></i>
         </a>
         <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center justify-center text-xs font-semibold px-4 py-2 rounded-full bg-jet text-white hover:bg-neutral-800 transition-all duration-200 active:scale-[0.98] shadow-xs">
+          class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-[11px] font-extrabold text-white transition-all shadow-sm shadow-blue-500/20 active:scale-[0.98]">
           <span>Daftar Member</span>
-          <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1 text-emerald-400"></i>
-        </a>
-        <a href="index.html"
-          class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-neutral-200 bg-white text-jet"
-          title="Kembali ke Beranda">
-          <i data-lucide="home" class="w-4 h-4"></i>
+          <i data-lucide="arrow-right" class="w-3 h-3 text-white"></i>
         </a>
       </div>
 
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-toggle" type="button" aria-label="Toggle Menu"
+        class="md:hidden w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors">
+        <i data-lucide="menu" id="menu-icon-open" class="w-4 h-4"></i>
+        <i data-lucide="x" id="menu-icon-close" class="w-4 h-4 hidden"></i>
+      </button>
+
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-sm mx-auto mt-2 bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-3xl p-5 shadow-xl pointer-events-auto">
+      <div class="flex flex-col space-y-2.5 text-xs font-semibold text-slate-700 text-left">
+        <a href="index.html" class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between">
+          <span>Beranda Utama</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+        </a>
+        <a href="tentang.html" class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between">
+          <span>Tentang &amp; Dewan Pembina</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+        </a>
+        <a href="index.html#kemitraan" class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between font-bold text-slate-900">
+          <span>Kemitraan ISP x Sniper Saham</span>
+          <span class="px-2 py-0.5 rounded-full text-[9px] bg-blue-50 text-blue-700 border border-blue-200">Buka RDN</span>
+        </a>
+        <a href="index.html#galeri" class="mobile-link py-2 border-b border-slate-100 flex items-center justify-between">
+          <span>Dokumentasi Kopdar</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+        </a>
+        <a href="kalkulator.html" class="mobile-link py-2 border-b border-slate-100 font-bold text-blue-600 flex items-center justify-between">
+          <span>Terminal Kalkulator Saham</span>
+          <span class="px-2 py-0.5 rounded-full text-[9px] bg-sky-50 text-sky-700 border border-sky-200">8 Tools</span>
+        </a>
+        <div class="pt-2 flex flex-col gap-2">
+          <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
+            class="w-full flex items-center justify-center gap-1.5 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-md shadow-blue-500/20">
+            <span>Daftar Member Resmi ISP</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </a>
+          <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
+            class="w-full flex items-center justify-center gap-1.5 py-3 rounded-full border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-xs">
+            <span>Buka Akun Saham (Sniper Saham)</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-400"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -304,7 +384,7 @@
         <span>/</span>
         <span class="text-jet font-semibold">Terminal Kalkulator Finansial</span>
         <span
-          class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
           Standar BEI (1 Lot = 100 Lembar)
         </span>
       </div>
@@ -403,7 +483,7 @@
             <div class="bg-white rounded-3xl p-6 sm:p-8 hairline-border shadow-xs">
               <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                   <h2 class="text-base sm:text-lg font-bold text-jet tracking-tight">Pilih atau Masukkan Kode Emiten BEI
                   </h2>
                 </div>
@@ -624,10 +704,10 @@
                     </span>
                   </div>
                   <div id="bs-net-profit"
-                    class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-700 tracking-tight">
+                    class="text-2xl sm:text-3xl font-extrabold font-mono text-blue-700 tracking-tight">
                     Rp 0
                   </div>
-                  <div class="text-[11px] text-emerald-700/80 mt-1 flex items-center gap-1">
+                  <div class="text-[11px] text-blue-700/80 mt-1 flex items-center gap-1">
                     <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
                     <span>Sudah dipotong seluruh fee beli, fee jual &amp; PPh Final 0.1%</span>
                   </div>
@@ -768,7 +848,7 @@
             <div>
               <div class="flex justify-between items-center text-xs font-semibold text-neutral-700 mb-1.5">
                 <label for="cp-cagr">Estimasi Rata-rata Return Portofolio (CAGR %)</label>
-                <span id="cp-cagr-label" class="font-mono font-bold text-emerald-600">14% p.a.</span>
+                <span id="cp-cagr-label" class="font-mono font-bold text-blue-600">14% p.a.</span>
               </div>
               <input id="cp-cagr" type="range" min="5" max="30" step="1" value="14"
                 class="w-full h-1.5 bg-neutral-200 rounded-lg appearance-none cursor-pointer" />
@@ -843,7 +923,7 @@
                 <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200">
                   <span class="text-[11px] text-emerald-800 block">Hasil Compounding</span>
                   <span id="cp-total-gain"
-                    class="text-sm sm:text-base font-bold font-mono text-emerald-700 mt-0.5 block">+Rp
+                    class="text-sm sm:text-base font-bold font-mono text-blue-700 mt-0.5 block">+Rp
                     769.800.000</span>
                 </div>
               </div>
@@ -1004,7 +1084,7 @@
                 <div class="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200">
                   <span class="text-xs font-medium text-emerald-800 block">Total Dividen Bersih / Tahun</span>
                   <div id="div-total-net"
-                    class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-700 tracking-tight mt-1">
+                    class="text-2xl sm:text-3xl font-extrabold font-mono text-blue-700 tracking-tight mt-1">
                     Rp 0
                   </div>
                   <div class="flex items-center gap-2 mt-2">
@@ -1031,7 +1111,7 @@
                 <!-- DRIP Feature (Reinvestasi) -->
                 <div class="p-4 rounded-2xl bg-neutral-50 border border-neutral-200/70 text-xs space-y-1.5">
                   <div class="font-bold text-jet flex items-center gap-1.5">
-                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-emerald-600"></i>
+                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-600"></i>
                     <span>Simulasi Reinvestasi Dividen (DRIP)</span>
                   </div>
                   <p class="text-[11px] text-muted leading-relaxed">
@@ -1285,12 +1365,12 @@
                 <span class="text-[10px] text-rose-600 mt-0.5 block" id="mm-sl-diff">0 pts (0.0%)</span>
               </div>
               <div>
-                <label for="mm-target" class="block text-xs font-semibold text-emerald-700 mb-1">Target Take
+                <label for="mm-target" class="block text-xs font-semibold text-blue-700 mb-1">Target Take
                   Profit</label>
                 <input id="mm-target" type="number" min="1" step="1" placeholder="Contoh: 3450"
                   oninput="updateMoneyManagement()"
                   class="w-full px-3 py-2 rounded-xl border border-emerald-300 font-mono text-sm font-semibold bg-emerald-50/50" />
-                <span class="text-[10px] text-emerald-600 mt-0.5 block" id="mm-tp-diff">0 pts (0.0%)</span>
+                <span class="text-[10px] text-blue-600 mt-0.5 block" id="mm-tp-diff">0 pts (0.0%)</span>
               </div>
             </div>
 
@@ -1356,7 +1436,7 @@
                     <span>Maksimum Kerugian jika Cut Loss:</span>
                     <span id="mm-max-loss-val" class="font-mono font-bold">-Rp 0</span>
                   </div>
-                  <div class="flex justify-between items-center text-emerald-700">
+                  <div class="flex justify-between items-center text-blue-700">
                     <span>Potensi Cuan jika Capai Target TP:</span>
                     <span id="mm-potential-gain-val" class="font-mono font-bold">+Rp 0</span>
                   </div>
@@ -1486,7 +1566,7 @@
               <div class="bg-white rounded-2xl hairline-border p-5">
                 <span class="text-[10px] font-mono uppercase tracking-wider text-muted block mb-1">Nilai
                   Investasi</span>
-                <span id="inf-result-invest" class="text-lg font-extrabold text-emerald-600 font-mono">Rp 0</span>
+                <span id="inf-result-invest" class="text-lg font-extrabold text-blue-600 font-mono">Rp 0</span>
               </div>
               <div class="bg-white rounded-2xl hairline-border p-5">
                 <span class="text-[10px] font-mono uppercase tracking-wider text-muted block mb-1">Daya Beli Riil Modal
@@ -1497,7 +1577,7 @@
                 <span class="text-[10px] font-mono uppercase tracking-wider text-muted block mb-1">Real Return (Return -
                   Inflasi)</span>
                 <span id="inf-result-real" class="text-lg font-extrabold text-jet font-mono">0%</span>
-                <span id="inf-result-status" class="text-[11px] font-medium text-emerald-700 block mt-0.5"></span>
+                <span id="inf-result-status" class="text-[11px] font-medium text-blue-700 block mt-0.5"></span>
               </div>
             </div>
           </div>
@@ -1676,7 +1756,7 @@
               <div class="bg-white rounded-2xl hairline-border p-5">
                 <span class="text-[10px] font-mono uppercase tracking-wider text-muted block mb-1">Keuntungan
                   Majemuk</span>
-                <span id="goal-profit" class="text-lg font-extrabold text-emerald-600 font-mono">Rp 0</span>
+                <span id="goal-profit" class="text-lg font-extrabold text-blue-600 font-mono">Rp 0</span>
               </div>
               <div class="bg-white rounded-2xl hairline-border p-5">
                 <span class="text-[10px] font-mono uppercase tracking-wider text-muted block mb-1">Proyeksi Akhir</span>
@@ -1712,13 +1792,13 @@
 
       <!-- Mobile Quick Actions -->
       <div class="sm:hidden mb-6 pb-6 border-b border-slate-200 text-left">
-        <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-600 font-bold block mb-2">AKSES
+        <span class="text-[10px] font-mono uppercase tracking-widest text-blue-600 font-bold block mb-2">AKSES
           CEPAT:</span>
         <div class="grid grid-cols-1 gap-2">
-          <a href="https://login.miraeasset.co.id/registration/oe?referralcode=3103411coba" target="_blank" rel="noopener noreferrer"
+          <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
             class="flex items-center justify-between p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs">
             <span>Buka Akun Saham (Mirae Asset)</span>
-            <i data-lucide="arrow-up-right" class="w-4 h-4 text-emerald-600"></i>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-blue-600"></i>
           </a>
           <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
             class="flex items-center justify-between p-3 rounded-xl bg-slate-900 text-white font-bold text-xs">
@@ -1741,8 +1821,8 @@
           <a href="index.html#galeri" class="hover:text-slate-900 transition-colors">Dokumentasi</a>
           <a href="https://s.id/GabungISPSemarang" target="_blank" rel="noopener noreferrer"
             class="hover:text-slate-900 transition-colors font-bold text-slate-800">Daftar ISP Semarang</a>
-          <a href="https://login.miraeasset.co.id/registration/oe?referralcode=3103411coba" target="_blank" rel="noopener noreferrer"
-            class="hover:text-emerald-700 transition-colors font-bold text-emerald-600">Buka Akun Saham (Mirae Asset)
+          <a href="https://s.id/joinsnipersaham" target="_blank" rel="noopener noreferrer"
+            class="hover:text-blue-700 transition-colors font-bold text-blue-600">Buka Akun Saham (Mirae Asset)
             &rarr;</a>
         </div>
       </div>
@@ -1988,7 +2068,7 @@
 
       if (netProfit >= 0) {
         profitContainer.className = 'p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 transition-all duration-300';
-        netProfitEl.className = 'text-2xl sm:text-3xl font-extrabold font-mono text-emerald-700 tracking-tight';
+        netProfitEl.className = 'text-2xl sm:text-3xl font-extrabold font-mono text-blue-700 tracking-tight';
         netProfitEl.textContent = '+' + formatIDR(netProfit);
         roiBadge.className = 'font-mono font-bold text-xs px-2 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900';
         roiBadge.textContent = '+' + roiPct.toFixed(2) + '%';
@@ -2431,7 +2511,7 @@
 
       const diffLabel = document.getElementById('avg-diff-label');
       if (diffInitial < 0) {
-        diffLabel.className = 'text-xs text-emerald-600 mt-2 flex items-center gap-1.5';
+        diffLabel.className = 'text-xs text-blue-600 mt-2 flex items-center gap-1.5';
         diffLabel.innerHTML = `<i data-lucide="trending-down" class="w-3.5 h-3.5"></i> <span>Turun ${formatNumber(Math.abs(Math.round(diffInitial)))} pts (${diffPct.toFixed(2)}%) dari harga awal</span>`;
       } else if (diffInitial > 0) {
         diffLabel.className = 'text-xs text-rose-600 mt-2 flex items-center gap-1.5';
@@ -2571,7 +2651,7 @@
 
       const rrStatus = document.getElementById('mm-rr-status');
       if (parseFloat(rrRatio) >= 2.0) {
-        rrStatus.className = 'text-[11px] font-medium text-emerald-700 mt-0.5 block';
+        rrStatus.className = 'text-[11px] font-medium text-blue-700 mt-0.5 block';
         rrStatus.textContent = 'Sangat Ideal (Diatas 1 : 2)';
       } else if (parseFloat(rrRatio) >= 1.5) {
         rrStatus.className = 'text-[11px] font-medium text-neutral-600 mt-0.5 block';
@@ -2662,7 +2742,7 @@
 
       const statusEl = document.getElementById('inf-result-status');
       if (realReturn > 0) {
-        statusEl.className = 'text-[11px] font-medium text-emerald-700 block mt-0.5';
+        statusEl.className = 'text-[11px] font-medium text-blue-700 block mt-0.5';
         statusEl.textContent = `✓ Investasi Anda mengalahkan inflasi — daya beli bertumbuh riil.`;
       } else if (realReturn === 0) {
         statusEl.className = 'text-[11px] font-medium text-amber-600 block mt-0.5';
@@ -2761,7 +2841,7 @@
       const totalEl = document.getElementById('alloc-total-pct');
       totalEl.textContent = total + '%';
       totalEl.className = total === 100
-        ? 'text-sm font-mono font-extrabold text-emerald-600'
+        ? 'text-sm font-mono font-extrabold text-blue-600'
         : 'text-sm font-mono font-extrabold text-rose-500';
 
       const assets = [
@@ -2892,7 +2972,7 @@
 
       const statusEl = document.getElementById('goal-status');
       if (finalVal >= target) {
-        statusEl.className = 'text-[11px] font-medium text-emerald-700 block mt-0.5';
+        statusEl.className = 'text-[11px] font-medium text-blue-700 block mt-0.5';
         statusEl.textContent = `✓ Target tercapai! (${((finalVal / target) * 100).toFixed(1)}%)`;
       } else {
         statusEl.className = 'text-[11px] font-medium text-amber-600 block mt-0.5';
@@ -2979,6 +3059,89 @@
         });
       }
     }
+  
+    // Living Topographic Financial Waves Canvas
+    const canvas = document.getElementById('bg-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let step = 0;
+
+      function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      function renderWaves() {
+        ctx.clearRect(0, 0, width, height);
+        step += 0.008;
+
+        const waves = [
+          { y: height * 0.35, length: 0.003, amplitude: 40, speed: step, color: 'rgba(2, 132, 199, 0.08)' },
+          { y: height * 0.45, length: 0.002, amplitude: 55, speed: step * 0.75 + 1, color: 'rgba(37, 99, 235, 0.07)' },
+          { y: height * 0.55, length: 0.0025, amplitude: 35, speed: step * 1.2 + 2, color: 'rgba(56, 189, 248, 0.06)' }
+        ];
+
+        waves.forEach(w => {
+          ctx.beginPath();
+          ctx.moveTo(0, w.y);
+          for (let x = 0; x < width; x += 6) {
+            const y = w.y + Math.sin(x * w.length + w.speed) * w.amplitude * Math.cos(w.speed * 0.5);
+            ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = w.color;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        });
+
+        // Floating nodes
+        const nodeCount = 5;
+        for (let i = 0; i < nodeCount; i++) {
+          const x = (width / nodeCount) * (i + 0.5) + Math.sin(step + i) * 30;
+          const y = height * 0.45 + Math.sin(x * 0.0025 + step) * 45;
+          ctx.beginPath();
+          ctx.arc(x, y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(2, 132, 199, 0.35)';
+          ctx.fill();
+        }
+
+        requestAnimationFrame(renderWaves);
+      }
+      renderWaves();
+    }
+
+    // Mobile Menu Toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        const isClosed = mobileMenu.classList.contains('hidden');
+        if (isClosed) {
+          mobileMenu.classList.remove('hidden');
+          iconOpen.classList.add('hidden');
+          iconClose.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        }
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+    }
+
   </script>
 </body>
 
